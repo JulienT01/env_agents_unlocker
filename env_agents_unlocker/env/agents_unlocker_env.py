@@ -4,6 +4,11 @@ from env_agents_unlocker.env.env_factory import create_list_of_agents
 
 # import pygame
 
+############ TODO ###########
+
+# ajouter le type_of_agent et le number_of_agent_to_create  dans le "agents_kwargs" ???
+#############################
+
 
 class AgentUnlockerEnv(gym.Env):
     # metadata = {"render_modes": ["human", "rgb_array"], "render_fps": 4}
@@ -11,8 +16,9 @@ class AgentUnlockerEnv(gym.Env):
     def __init__(
         self,
         number_of_agent_to_create,
-        type_of_agents,
-        agents_kwargs,
+        agents_creation_function=None,
+        type_of_agents=None,
+        agents_kwargs=None,
         max_steps=None,
         render_mode=None,
     ):
@@ -20,14 +26,17 @@ class AgentUnlockerEnv(gym.Env):
         ------------ Parameters ------------
         number_of_agent_to_create (int) :
             the number of agent living in the environment.
+        agents_creation_function (dict) :
+            function to create custom Agent and/or Action.
         type_of_agents (str) :
-            what kind of agents live inside the environment.
+            (only if agents_creation_function is None) what kind of agents live inside the environment.
         agents_kwargs (dict) :
             the parameter needed to create the agents living in the environment.
         max_steps (int) :
             The number of step before terminating the env
         """
         self.number_of_agent_to_create = number_of_agent_to_create
+        self.agents_creation_function = agents_creation_function
         self.type_of_agents = type_of_agents
         self.agents_kwargs = agents_kwargs
         self.max_steps = max_steps
@@ -44,9 +53,14 @@ class AgentUnlockerEnv(gym.Env):
         self.render_mode = render_mode
 
     def _init_agents(self):
-        self.env_agents = create_list_of_agents(
-            self.number_of_agent_to_create, self.type_of_agents, self.agents_kwargs
-        )
+        if self.agents_creation_function is not None:
+            self.env_agents = self.agents_creation_function(
+                self.number_of_agent_to_create, self.agents_kwargs
+            )
+        else:
+            self.env_agents = create_list_of_agents(
+                self.number_of_agent_to_create, self.type_of_agents, self.agents_kwargs
+            )
 
         # get the list of existing action
         temp_action_list = []

@@ -8,7 +8,7 @@ import random
 
 # faire une fonction print_kwargs_structure(type_of_agents) pour afficher sous quelle forme devrait être le agents_kwargs
 # faire un objet qui prend en paramètre une fonction et les paramètre de cette fonction... pour que les gens puissent donner exactement ce qu'ils veulent, plutot que d'écrire du code ici
-
+# voir tout passer en parametre (la classe Agent, la classe Action, la stratégie sous forme d'une fonction)
 #####################
 
 
