@@ -1,7 +1,7 @@
-from env_agents_unlocker.env.secondary_agents.abstract_base_agent import (
+from env_agents_unlocker.envs.secondary_agents.abstract_base_agent import (
     AbstractBaseAgent,
 )
-from env_agents_unlocker.env.actions.basic_action import AbstractBaseAction
+from env_agents_unlocker.envs.actions.basic_action import AbstractBaseAction
 
 
 class BasicAgent(AbstractBaseAgent):
@@ -56,12 +56,5 @@ class BasicAgent(AbstractBaseAgent):
 
         return unlocked_action
 
-    def to_dict(self):
-        dict_to_return = {
-            "name": self.name,
-            "all_actions": list(map(lambda x: x.to_dict(), self.potential_actions)),
-            "unlocked_action": list(
-                map(lambda x: x.to_dict(), self._get_unlocked_actions())
-            ),
-        }
-        return dict_to_return
+    def __hash__(self):
+        return hash(self.action_name)

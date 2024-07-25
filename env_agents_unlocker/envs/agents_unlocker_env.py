@@ -1,6 +1,6 @@
 import gymnasium as gym
 from gymnasium import spaces
-from env_agents_unlocker.env.env_factory import create_list_of_agents
+from env_agents_unlocker.envs.env_factory import create_list_of_agents
 
 # import pygame
 
@@ -65,11 +65,44 @@ class AgentUnlockerEnv(gym.Env):
         # get the list of existing action
         temp_action_list = []
         for agent in self.env_agents:
-            temp_action_list.append(agent.get_all_actions_names())
+            temp_action_list += agent.get_all_actions_names()
         # make all actions unique
         self.action_list = list(set(temp_action_list))
 
         self.action_space = spaces.Discrete(len(self.action_list))
+        self.observation_space = spaces.Dict(
+            {
+                "agents": spaces.Sequence(
+                    spaces.Dict(
+                        {
+                            "name": spaces.Text(250),
+                            "all_actions": spaces.Sequence(
+                                spaces.Dict(
+                                    {
+                                        "name": spaces.Text(250),
+                                        "unlock": spaces.Box(0, 1),
+                                        "value": spaces.Box(-100000, +100000),
+                                    }
+                                )
+                            ),
+                            "unlocked_action": spaces.Sequence(
+                                spaces.Dict(
+                                    {
+                                        "name": spaces.Text(250),
+                                        "unlock": spaces.Box(0, 1),
+                                        "value": spaces.Box(-100000, +100000),
+                                    }
+                                )
+                            ),
+                        }
+                    )
+                ),
+            }
+        )
+
+        # "name": self.action_name,
+        # "unlock": self.unlocked,
+        # "value": self.value,
 
         # maps abstract actions from `self.action_space` to the action to unlock
         for id, name in enumerate(self.action_list):

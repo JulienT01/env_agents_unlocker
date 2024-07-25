@@ -1,6 +1,6 @@
-from env_agents_unlocker.env.secondary_agents.basic_agent import BasicAgent
-from env_agents_unlocker.env.secondary_agents.basic_agent import AbstractBaseAgent
-from env_agents_unlocker.env.actions.basic_action import BasicAction
+from env_agents_unlocker.envs.secondary_agents.basic_agent import BasicAgent
+from env_agents_unlocker.envs.secondary_agents.basic_agent import AbstractBaseAgent
+from env_agents_unlocker.envs.actions.basic_action import BasicAction
 
 import random
 
@@ -69,7 +69,7 @@ def _get_new_all_basic_agents(
 
     number_of_action_max = agents_kwargs["number_of_action_max"]
     available_actions = []
-    for j in number_of_action_max:
+    for j in range(number_of_action_max):
         available_actions.append(
             BasicAction(action_name=str(j), unlocked=False, value=1)
         )

@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from env_agents_unlocker.env.actions.basic_action import AbstractBaseAction
+from env_agents_unlocker.envs.actions.basic_action import AbstractBaseAction
 
 
 ####### TODO? #######
@@ -68,15 +68,25 @@ class AbstractBaseAgent(ABC):
         return [action.get_name() for action in self.potential_actions]
 
     @abstractmethod
-    def get_current_score(self):
+    def get_current_reward(self):
         """
         Return a score on "how the agent did with the current unlocked actions"
         """
         pass
 
-    @abstractmethod
     def to_dict(self):
         """
         Return a dict that describe the current agent.
         """
+        dict_to_return = {
+            "name": self.name,
+            "all_actions": list(map(lambda x: x.to_dict(), self.potential_actions)),
+            "unlocked_action": list(
+                map(lambda x: x.to_dict(), self._get_unlocked_actions())
+            ),
+        }
+        return dict_to_return
+
+    @abstractmethod
+    def __hash__(self):
         pass

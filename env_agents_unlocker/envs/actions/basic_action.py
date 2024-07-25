@@ -1,4 +1,4 @@
-from env_agents_unlocker.env.actions.abstract_action import AbstractBaseAction
+from env_agents_unlocker.envs.actions.abstract_action import AbstractBaseAction
 
 
 class BasicAction(AbstractBaseAction):
@@ -25,10 +25,5 @@ class BasicAction(AbstractBaseAction):
             and self.value == other_action.value
         )
 
-    def to_dict(self):
-        dict_to_return = {
-            "name": self.action_name,
-            "unlock": self.unlocked,
-            "value": self.value,
-        }
-        return dict_to_return
+    def __hash__(self):
+        return hash(self.action_name)

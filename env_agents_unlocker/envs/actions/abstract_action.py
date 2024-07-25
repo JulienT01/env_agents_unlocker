@@ -51,9 +51,17 @@ class AbstractBaseAction(ABC):
     def __eq__(self, value: object) -> bool:
         pass
 
-    @abstractmethod
     def to_dict(self):
         """
         Return a dict that describe the current action.
         """
+        dict_to_return = {
+            "name": self.action_name,
+            "unlock": self.unlocked,
+            "value": self.value,
+        }
+        return dict_to_return
+
+    @abstractmethod
+    def __hash__(self):
         pass
