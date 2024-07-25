@@ -1,5 +1,6 @@
 import gymnasium as gym
 
+
 env_agents_kwargs = {
     "number_of_action_max": 40,
     "number_of_action_to_select": 20,
@@ -17,13 +18,20 @@ env = gym.make(
     "env_agents_unlocker:env_agents_unlocker/Agent_unlocker-v0", **env_kwargs
 )
 
-print("env created : ", env)
+env.reset()
+# print("reset done : ", result)
+run_number = 1
+for tt in range(300):
+    action = env.action_space.sample()
+    observation, reward, terminated, truncated, info = env.step(action)
+    done = terminated or truncated
 
-result = env.reset()
+    if done:
+        print("run number ", run_number, ", final reward = ", reward)
+        env.reset()
+        run_number += 1
 
-print("reset done : ", result)
 
+# print("action_space : ", env.action_space)
 
-print("action_space : ", env.action_space)
-
-print("done")
+print("done !!!")
