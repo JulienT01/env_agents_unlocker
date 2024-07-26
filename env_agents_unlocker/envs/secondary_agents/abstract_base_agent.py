@@ -25,7 +25,7 @@ class AbstractBaseAgent(ABC):
         self,
         name: str,
         potential_actions: list[AbstractBaseAction],
-        pre_unlock_actions: list[str] = None,
+        pre_unlock_actions_names: list[str] = None,
     ) -> None:
         """
         ------------ Parameters ------------
@@ -33,14 +33,14 @@ class AbstractBaseAgent(ABC):
             The name of the agent (could be use as ID)
         potential_actions (list[AbstractBaseAction]):
             List of all the actions for this agent (lock and unlock)
-        pre_unlock_actions (str ou list[str,]) , default value = None :
+        pre_unlock_actions_names (str ou list[str,]) , default value = None :
             actions to unlock from the begining (by default all actions are locked)
         """
         self.name = name
         self.potential_actions = potential_actions
 
-        if pre_unlock_actions is not None:
-            self.unlock_actions(pre_unlock_actions)
+        if pre_unlock_actions_names is not None:
+            self.unlock_actions(pre_unlock_actions_names)
 
     def unlock_actions(self, actions_to_unlock):
         """

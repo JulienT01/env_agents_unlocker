@@ -84,7 +84,7 @@ def _get_new_all_basic_agents(
             BasicAgent(
                 name=str(i),
                 potential_actions=actions_for_this_agent,
-                pre_unlock_actions=None,
+                pre_unlock_actions_names=None,
             )
         )
     return basic_agent_list

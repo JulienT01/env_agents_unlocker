@@ -9,7 +9,7 @@ class BasicAgent(AbstractBaseAgent):
         self,
         name: str,
         potential_actions: list[AbstractBaseAction],
-        pre_unlock_actions: list[str] = None,
+        pre_unlock_actions_names: list[str] = None,
     ) -> None:
         """
         Basic Agent, its objective (to maximize its reward) is to unlock the maximum of its actions
@@ -18,10 +18,10 @@ class BasicAgent(AbstractBaseAgent):
             The name of the agent (could be use as ID)
         potential_actions (list[AbstractBaseAction]):
             List of all the actions for this agent (lock and unlock)
-        pre_unlock_actions (str ou list[str,]) , default value = None :
+        pre_unlock_actions_names (str ou list[str,]) , default value = None :
             actions to unlock from the begining (by default all actions are locked)
         """
-        super().__init__(name, potential_actions, pre_unlock_actions)
+        super().__init__(name, potential_actions, pre_unlock_actions_names)
 
     def get_current_reward(self):
         """
@@ -60,4 +60,4 @@ class BasicAgent(AbstractBaseAgent):
         return [action.action_name for action in self._get_unlocked_actions()]
 
     def __hash__(self):
-        return hash(self.action_name)
+        return hash(self.name)
