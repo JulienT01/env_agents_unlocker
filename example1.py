@@ -2,15 +2,15 @@ import gymnasium as gym
 
 
 env_agents_kwargs = {
-    "number_of_action_max": 40,
-    "number_of_action_to_select": 20,
+    "nb_available_action_in_env": 40,
+    "nb_action_to_select_by_agent": 20,
 }
 
 env_kwargs = {
     "number_of_agent_to_create": 200,
     "type_of_agents": "all_basic",
     "agents_kwargs": env_agents_kwargs,
-    "max_steps": 15,
+    "env_max_steps": 15,
 }
 
 

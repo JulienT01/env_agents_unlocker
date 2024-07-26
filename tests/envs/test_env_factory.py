@@ -16,12 +16,12 @@ class TestEnvFactory(TestCase):
 
     def test_create_list_of_agents__all_basic_type(self):
         nb_agent = 5
-        number_of_action_to_select = 3
-        number_of_action_max = 4
+        nb_action_to_select_by_agent = 3
+        nb_available_action_in_env = 4
 
         agents_kwargs = {
-            "number_of_action_max": number_of_action_max,
-            "number_of_action_to_select": number_of_action_to_select,
+            "nb_available_action_in_env": nb_available_action_in_env,
+            "nb_action_to_select_by_agent": nb_action_to_select_by_agent,
         }
 
         list_agent = create_list_of_agents(
@@ -31,7 +31,9 @@ class TestEnvFactory(TestCase):
         )
 
         assert len(list_agent) == nb_agent
-        assert len(list_agent[0].get_all_actions_names()) == number_of_action_to_select
+        assert (
+            len(list_agent[0].get_all_actions_names()) == nb_action_to_select_by_agent
+        )
 
         # get the list of existing action
         temp_action_list = []
@@ -40,4 +42,4 @@ class TestEnvFactory(TestCase):
         # make all actions unique
         action_list = list(set(temp_action_list))
 
-        assert len(action_list) == number_of_action_max
+        assert len(action_list) == nb_available_action_in_env

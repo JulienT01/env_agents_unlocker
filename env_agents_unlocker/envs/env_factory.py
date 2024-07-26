@@ -57,8 +57,8 @@ def _get_new_all_basic_agents(
         the number of BasicAgent in the returned list
     agents_kwargs (dict) :
         settings specific to the agents (and actions for this agent) to create. Here (key):
-            - number_of_action_max : the size of all available actions
-            - number_of_action_to_select : the size of action list for each agent
+            - nb_available_action_in_env : the size of all available actions
+            - nb_action_to_select_by_agent : the size of action list for each agent
 
     ------------ Returns ---------------
     list(BasicAgent) :
@@ -67,17 +67,17 @@ def _get_new_all_basic_agents(
     """
     basic_agent_list = []
 
-    number_of_action_max = agents_kwargs["number_of_action_max"]
+    nb_available_action_in_env = agents_kwargs["nb_available_action_in_env"]
     available_actions = []
-    for j in range(number_of_action_max):
+    for j in range(nb_available_action_in_env):
         available_actions.append(
             BasicAction(action_name=str(j), unlocked=False, value=1)
         )
 
     for i in range(number_of_agent_to_create):
-        number_of_action_to_select = agents_kwargs["number_of_action_to_select"]
+        nb_action_to_select_by_agent = agents_kwargs["nb_action_to_select_by_agent"]
         actions_for_this_agent = random.sample(
-            available_actions, number_of_action_to_select
+            available_actions, nb_action_to_select_by_agent
         )
 
         basic_agent_list.append(

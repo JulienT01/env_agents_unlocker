@@ -19,7 +19,7 @@ class AgentUnlockerEnv(gym.Env):
         agents_creation_function=None,
         type_of_agents=None,
         agents_kwargs=None,
-        max_steps=None,
+        env_max_steps=None,
         render_mode=None,
     ):
         """
@@ -32,14 +32,14 @@ class AgentUnlockerEnv(gym.Env):
             (only if agents_creation_function is None) what kind of agents live inside the environment.
         agents_kwargs (dict) :
             the parameter needed to create the agents living in the environment.
-        max_steps (int) :
+        env_max_steps (int) :
             The number of step before terminating the env
         """
         self.number_of_agent_to_create = number_of_agent_to_create
         self.agents_creation_function = agents_creation_function
         self.type_of_agents = type_of_agents
         self.agents_kwargs = agents_kwargs
-        self.max_steps = max_steps
+        self.env_max_steps = env_max_steps
         self.current_nb_steps = 0
         self.env_agents = []  # will be initialized in _init_agents()
         self.action_list = []  # will be initialized in _init_agents()
@@ -145,8 +145,8 @@ class AgentUnlockerEnv(gym.Env):
 
         self.current_nb_steps += 1
 
-        # An episode is done if the current number of steps is superior to the max_steps value
-        terminated = True if (self.current_nb_steps >= self.max_steps) else False
+        # An episode is done if the current number of steps is superior to the env_max_steps value
+        terminated = True if (self.current_nb_steps >= self.env_max_steps) else False
         reward = self._sum_all_agents_rewards()
         observation = self._get_obs()
         info = self._get_info()
