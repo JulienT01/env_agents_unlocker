@@ -46,6 +46,7 @@ class AgentUnlockerEnv(gym.Env):
         self.action_space = None  # will be initialized in _init_agents()
         # map of the abstract actions from `self.action_space` to the action to unlock
         self._action_id_to_action_name = {}
+        self._action_name_to_action_id = {}
 
         self._init_agents()
 
@@ -107,6 +108,7 @@ class AgentUnlockerEnv(gym.Env):
         # maps abstract actions from `self.action_space` to the action to unlock
         for id, name in enumerate(self.action_list):
             self._action_id_to_action_name[id] = name
+            self._action_name_to_action_id[name] = id
 
         self.current_nb_steps = 0
 
@@ -135,6 +137,12 @@ class AgentUnlockerEnv(gym.Env):
         for agent in self.env_agents:
             sum_rewards += agent.get_current_reward()
         return sum_rewards
+
+    def get_action_id_from_name(self, action_name):
+        return self._action_name_to_action_id[action_name]
+
+    def get_action_name_from_id(self, action_id):
+        return self._action_id_to_action_name[action_id]
 
     def step(self, action_id):
         # Map the action (element of {0,1,2,3}) to the direction we walk in

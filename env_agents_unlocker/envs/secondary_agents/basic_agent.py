@@ -48,13 +48,16 @@ class BasicAgent(AbstractBaseAgent):
             the list of all the unlocked actions
 
         """
-        unlocked_action = []
+        unlocked_actions = []
 
         for action in self.potential_actions:
             if action.is_unlock():
-                unlocked_action.append(action)
+                unlocked_actions.append(action)
 
-        return unlocked_action
+        return unlocked_actions
+
+    def get_unlocked_actions_names(self):
+        return [action.action_name for action in self._get_unlocked_actions()]
 
     def __hash__(self):
         return hash(self.action_name)
