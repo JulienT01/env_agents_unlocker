@@ -1,45 +1,66 @@
+# Python package
+# Create and test a Python package on multiple Python versions.
+# Add steps that analyze code, save the dist with the build record, publish to a PyPI-compatible index, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/python
+
 trigger:
 - main
 
 pool:
   vmImage: ubuntu-latest
-
 strategy:
   matrix:
-    Python310:
-      python.version: '3.10'
     Python311:
       python.version: '3.11'
-    Python312:
-      python.version: '3.12'
-
 steps:
-  - task: UsePythonVersion@0
-    inputs:
-      versionSpec: '$(python.version)'
-    displayName: 'Use Python $(python.version)'
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '$(python.version)'
+  displayName: 'Use Python $(python.version)'
 
-  - script: |
-      python -m pip install --upgrade pip
-      pip install -r requirements.txt
-    displayName: 'Install dependencies'
 
-  - task: ArchiveFiles@2
-    displayName: 'Archive files'
-    inputs:
-      rootFolderOrFile: $(System.DefaultWorkingDirectory)
-      includeRootFolder: false
-      archiveType: zip
-      archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-$(python.version).zip
-      replaceExistingArchive: true
+# - script: |
+#     curl -sSL install.python-poetry.org | python3 -
+#     sudo apt install libglu1-mesa
+#   displayName: 'Install poetry'
 
-  - task: PublishBuildArtifacts@1
-    inputs:
-      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-      ArtifactName: 'drop'
-      publishLocation: 'Container'
+# - script: echo "##vso[task.setvariable variable=PATH]${PATH}:$HOME/.local/bin"
+#   displayName: 'Add poetry to PATH'
 
-  - script: |
-      pip install pytest pytest-azurepipelines
-      pytest
-    displayName: 'pytest'
+# - script: |
+#     sleep 40
+#   condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')  #run only on main
+#   displayName: 'timer for version when push on main'
+
+# - script: |
+#     curl -C - https://raw.githubusercontent.com/rlberry-py/rlberry/main/pyproject.toml > pyproject.toml
+#   condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')  #run only on main
+#   displayName: "update version when push on main"
+
+- script:
+    pip install -r requirements.txt
+    pip install -e .
+  displayName: 'Install dependencies'
+
+- script: |
+    set -xe
+    poetry add pytest-azurepipelines pytest-cov pytest-xvfb
+    poetry run pytest --import-mode=importlib --cov=rlberry --cov-report xml rlberry
+  displayName: 'Test and coverage'
+- script: |
+    curl -Os https://uploader.codecov.io/latest/linux/codecov
+    chmod +x codecov
+    ./codecov
+  displayName: 'Upload to codecov.io'
+
+
+- script: |
+    python -m pip install --upgrade pip
+    pip install -r requirements.txt
+    pip install -e .
+  displayName: 'Install dependencies'
+
+- script: |
+    pip install pytest pytest-azurepipelines
+    pytest
+  displayName: 'pytest'
