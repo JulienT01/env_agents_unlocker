@@ -61,3 +61,13 @@ class BasicAgent(AbstractBaseAgent):
 
     def __hash__(self):
         return hash(self.name)
+
+    def __str__(self):
+        return (
+            "agent name : "
+            + str(self.name)
+            + "\n potential_actions are : "
+            + str(self.potential_actions)
+            + "\n unlocked actions are : "
+            + str(self._get_unlocked_actions())
+        )

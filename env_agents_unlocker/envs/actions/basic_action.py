@@ -27,3 +27,13 @@ class BasicAction(AbstractBaseAction):
 
     def __hash__(self):
         return hash(self.action_name)
+
+    def __str__(self):
+        return (
+            "action name : "
+            + str(self.action_name)
+            + "\n is unlocked : "
+            + str(self.unlocked)
+            + "\n value : "
+            + str(self.value)
+        )

@@ -65,3 +65,7 @@ class AbstractBaseAction(ABC):
     @abstractmethod
     def __hash__(self):
         pass
+
+    @abstractmethod
+    def __str__(self):
+        pass
