@@ -1,15 +1,19 @@
 import gymnasium as gym
+from env_agents_unlocker.envs.strategy_creation_env_agents.basic_strategy import (
+    BasicStrategyCreationEnvAgents,
+)
 
+my_strategy = BasicStrategyCreationEnvAgents(name="basic_strategy")
 
 env_agents_kwargs = {
+    "number_of_agents": 200,
     "nb_available_action_in_env": 40,
     "nb_action_to_select_by_agent": 20,
 }
 
 env_kwargs = {
-    "number_of_agent_to_create": 200,
-    "type_of_agents": "all_basic",
-    "agents_kwargs": env_agents_kwargs,
+    "strategy_creation_env_agents": my_strategy,
+    "strategy_agents_kwargs": env_agents_kwargs,
     "env_max_steps": 15,
 }
 

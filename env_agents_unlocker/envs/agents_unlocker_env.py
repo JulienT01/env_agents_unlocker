@@ -1,6 +1,8 @@
 import gymnasium as gym
 from gymnasium import spaces
-from env_agents_unlocker.envs.env_factory import create_list_of_agents
+from env_agents_unlocker.envs.strategy_creation_env_agents import (
+    abstract_strategy_creation_env_agents,
+)
 
 # import pygame
 
@@ -15,30 +17,22 @@ class AgentUnlockerEnv(gym.Env):
 
     def __init__(
         self,
-        number_of_agent_to_create,
-        agents_creation_function=None,
-        type_of_agents=None,
-        agents_kwargs=None,
+        strategy_creation_env_agents: abstract_strategy_creation_env_agents,
+        strategy_agents_kwargs=None,
         env_max_steps=None,
         render_mode=None,
     ):
         """
         ------------ Parameters ------------
-        number_of_agent_to_create (int) :
-            the number of agent living in the environment.
-        agents_creation_function (dict) :
-            function to create custom Agent and/or Action.
-        type_of_agents (str) :
-            (only if agents_creation_function is None) what kind of agents live inside the environment.
-        agents_kwargs (dict) :
+        strategy_creation_env_agents (dict) :
+            object to create the list of Agents living in the environment.
+        strategy_agents_kwargs (dict) :
             the parameter needed to create the agents living in the environment.
         env_max_steps (int) :
             The number of step before terminating the env
         """
-        self.number_of_agent_to_create = number_of_agent_to_create
-        self.agents_creation_function = agents_creation_function
-        self.type_of_agents = type_of_agents
-        self.agents_kwargs = agents_kwargs
+        self.strategy_creation_env_agents = strategy_creation_env_agents
+        self.agents_kwargs = strategy_agents_kwargs
         self.env_max_steps = env_max_steps
         self.current_nb_steps = 0
         self.env_agents = []  # will be initialized in _init_agents()
@@ -54,14 +48,9 @@ class AgentUnlockerEnv(gym.Env):
         self.render_mode = render_mode
 
     def _init_agents(self):
-        if self.agents_creation_function is not None:
-            self.env_agents = self.agents_creation_function(
-                self.number_of_agent_to_create, self.agents_kwargs
-            )
-        else:
-            self.env_agents = create_list_of_agents(
-                self.number_of_agent_to_create, self.type_of_agents, self.agents_kwargs
-            )
+        self.env_agents = self.strategy_creation_env_agents.create_list_of_agents(
+            self.agents_kwargs
+        )
 
         # get the list of existing action
         temp_action_list = []
@@ -100,10 +89,6 @@ class AgentUnlockerEnv(gym.Env):
                 ),
             }
         )
-
-        # "name": self.action_name,
-        # "unlock": self.unlocked,
-        # "value": self.value,
 
         # maps abstract actions from `self.action_space` to the action to unlock
         for id, name in enumerate(self.action_list):

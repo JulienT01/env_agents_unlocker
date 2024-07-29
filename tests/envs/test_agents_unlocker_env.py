@@ -1,25 +1,29 @@
 from unittest import TestCase
 import gymnasium as gym
 
+from env_agents_unlocker.envs.strategy_creation_env_agents.basic_strategy import (
+    BasicStrategyCreationEnvAgents,
+)
+
 
 SETUP_NUMBER_ACTION_AVAILABLE_IN_ENV = 40
 SETUP_NUMBER_ACTION_TO_SELECT_BY_AGENT = 20
 SETUP_NUMBER_AGENT_TO_CREATE = 200
-SETUP_TYPE_OF_AGENTS = "all_basic"
+SETUP_STRATEGY_CREATION_AGENTS = BasicStrategyCreationEnvAgents(name="basic_strategy")
 SETUP_ENV_MAX_STEP = 15
 
 
 class AgentUnlockerEnv(TestCase):
     def setUp(self):
         env_agents_kwargs = {
+            "number_of_agents": SETUP_NUMBER_AGENT_TO_CREATE,
             "nb_available_action_in_env": SETUP_NUMBER_ACTION_AVAILABLE_IN_ENV,
             "nb_action_to_select_by_agent": SETUP_NUMBER_ACTION_TO_SELECT_BY_AGENT,
         }
 
         env_kwargs = {
-            "number_of_agent_to_create": SETUP_NUMBER_AGENT_TO_CREATE,
-            "type_of_agents": SETUP_TYPE_OF_AGENTS,
-            "agents_kwargs": env_agents_kwargs,
+            "strategy_creation_env_agents": SETUP_STRATEGY_CREATION_AGENTS,
+            "strategy_agents_kwargs": env_agents_kwargs,
             "env_max_steps": SETUP_ENV_MAX_STEP,
         }
 
