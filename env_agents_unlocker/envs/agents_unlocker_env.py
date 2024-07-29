@@ -126,8 +126,8 @@ class AgentUnlockerEnv(gym.Env):
     def get_action_id_from_name(self, action_name):
         return self._action_name_to_action_id[action_name]
 
-    def get_action_name_from_id(self, action_id):
-        return self._action_id_to_action_name[action_id]
+    # def get_action_name_from_id(self, action_id):
+    #     return self._action_id_to_action_name[action_id]
 
     def step(self, action_id):
         # Map the action (element of {0,1,2,3}) to the direction we walk in
