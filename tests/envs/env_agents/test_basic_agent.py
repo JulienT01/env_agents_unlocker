@@ -108,3 +108,7 @@ class TestBasicAction(TestCase):
         assert not self.agent_basic.__hash__() == self.agent_basic_pre_unlock.__hash__()
         self.agent_basic_pre_unlock.name = SETUP_AGENT_NAME
         assert self.agent_basic.__hash__() == self.agent_basic_pre_unlock.__hash__()
+
+    def test_str(self):
+        assert str(SETUP_AGENT_NAME) in str(self.agent_basic)
+        assert str(SETUP_INITIAL_LIST_ACTIONS) in str(self.agent_basic)

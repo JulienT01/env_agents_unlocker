@@ -30,7 +30,7 @@ class BasicAction(AbstractBaseAction):
 
     def __str__(self):
         return (
-            "action name : "
+            "\n action name : "
             + str(self.action_name)
             + "\n is unlocked : "
             + str(self.unlocked)

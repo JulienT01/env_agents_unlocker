@@ -90,3 +90,8 @@ class TestBasicAction(TestCase):
         assert self.action_locked.__hash__() == action_locked2.__hash__()
         action_locked2.action_name += "2"
         assert not self.action_locked.__hash__() == action_locked2.__hash__()
+
+    def test_str(self):
+        assert str(SETUP_ACTION_LOCKED_NAME) in str(self.action_locked)
+        assert str(SETUP_ACTION_LOCKED_VALUE) in str(self.action_locked)
+        assert str(SETUP_ACTION_LOCKED) in str(self.action_locked)

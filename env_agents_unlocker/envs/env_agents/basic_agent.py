@@ -64,7 +64,7 @@ class BasicAgent(AbstractBaseAgent):
 
     def __str__(self):
         return (
-            "agent name : "
+            "\n agent name : "
             + str(self.name)
             + "\n potential_actions are : "
             + str(self.potential_actions)
