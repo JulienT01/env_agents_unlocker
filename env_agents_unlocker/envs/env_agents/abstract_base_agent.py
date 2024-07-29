@@ -18,7 +18,7 @@ from env_agents_unlocker.envs.actions.basic_action import AbstractBaseAction
 class AbstractBaseAgent(ABC):
     """
     Base class for all Agents living in the environment.
-    The other agent should inherite from this class
+    The other agent should inherit from this class
     """
 
     def __init__(
@@ -34,7 +34,7 @@ class AbstractBaseAgent(ABC):
         potential_actions (list[AbstractBaseAction]):
             List of all the actions for this agent (lock and unlock)
         pre_unlock_actions_names (str ou list[str,]) , default value = None :
-            actions to unlock from the begining (by default all actions are locked)
+            actions to unlock from the beginning (by default all actions are locked)
         """
         self.name = name
         self.potential_actions = potential_actions
@@ -47,7 +47,7 @@ class AbstractBaseAgent(ABC):
         Function that unlock a specific list of action for the current Agent
 
         Warning : there is no feedback about the previous state of the action, or even if the action exist for this agent.
-        The function can be overwite if you need a specific functionality.
+        The function can be overwrite if you need a specific functionality.
 
         ------------ Parameters ------------
         actions_to_unlock (str ou list[str,]) :

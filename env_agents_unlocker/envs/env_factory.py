@@ -1,5 +1,5 @@
-from env_agents_unlocker.envs.secondary_agents.basic_agent import BasicAgent
-from env_agents_unlocker.envs.secondary_agents.basic_agent import AbstractBaseAgent
+from env_agents_unlocker.envs.env_agents.basic_agent import BasicAgent
+from env_agents_unlocker.envs.env_agents.basic_agent import AbstractBaseAgent
 from env_agents_unlocker.envs.actions.basic_action import BasicAction
 
 import random
@@ -22,7 +22,7 @@ def create_list_of_agents(
     number_of_agent_to_create (int) :
         the number of Agent in the returned list
     type_of_agents :
-        what kind of agents should it be (agents's creation startegy)
+        what kind of agents should it be (agents's creation strategy)
     agents_kwargs (dict) :
         settings specific to these agents to create (and actions for theses agent)
 

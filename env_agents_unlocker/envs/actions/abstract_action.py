@@ -4,7 +4,7 @@ from abc import ABC, abstractmethod
 class AbstractBaseAction(ABC):
     """
     Base class for all Action available for the Agent.
-    The other Action should inherite from this class
+    The other Action should inherit from this class
     """
 
     def __init__(

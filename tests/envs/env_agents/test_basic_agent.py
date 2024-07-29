@@ -1,8 +1,8 @@
 from unittest import TestCase
 import copy
 from env_agents_unlocker.envs.actions.basic_action import BasicAction
-from env_agents_unlocker.envs.secondary_agents.basic_agent import BasicAgent
-from env_agents_unlocker.envs.secondary_agents.abstract_base_agent import (
+from env_agents_unlocker.envs.env_agents.basic_agent import BasicAgent
+from env_agents_unlocker.envs.env_agents.abstract_base_agent import (
     AbstractBaseAgent,
 )
 

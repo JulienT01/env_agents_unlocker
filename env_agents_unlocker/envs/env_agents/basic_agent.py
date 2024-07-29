@@ -1,4 +1,4 @@
-from env_agents_unlocker.envs.secondary_agents.abstract_base_agent import (
+from env_agents_unlocker.envs.env_agents.abstract_base_agent import (
     AbstractBaseAgent,
 )
 from env_agents_unlocker.envs.actions.basic_action import AbstractBaseAction
@@ -19,7 +19,7 @@ class BasicAgent(AbstractBaseAgent):
         potential_actions (list[AbstractBaseAction]):
             List of all the actions for this agent (lock and unlock)
         pre_unlock_actions_names (str ou list[str,]) , default value = None :
-            actions to unlock from the begining (by default all actions are locked)
+            actions to unlock from the beginning (by default all actions are locked)
         """
         super().__init__(name, potential_actions, pre_unlock_actions_names)
 
