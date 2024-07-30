@@ -49,7 +49,7 @@ class AbstractBaseAction(ABC):
 
     @abstractmethod
     def __eq__(self, value: object) -> bool:
-        pass
+        """abstract method"""
 
     def to_dict(self):
         """
@@ -64,8 +64,8 @@ class AbstractBaseAction(ABC):
 
     @abstractmethod
     def __hash__(self):
-        pass
+        """abstract method"""
 
     @abstractmethod
     def __str__(self):
-        pass
+        """abstract method"""

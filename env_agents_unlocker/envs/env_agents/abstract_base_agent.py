@@ -70,9 +70,8 @@ class AbstractBaseAgent(ABC):
     @abstractmethod
     def get_current_reward(self):
         """
-        Return a score on "how the agent did with the current unlocked actions"
+        Abstract method : return a score on "how the agent did with the current unlocked actions"
         """
-        pass
 
     def to_dict(self):
         """
@@ -89,8 +88,8 @@ class AbstractBaseAgent(ABC):
 
     @abstractmethod
     def __hash__(self):
-        pass
+        """abstract method"""
 
     @abstractmethod
     def __str__(self):
-        pass
+        """abstract method"""

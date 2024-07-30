@@ -42,16 +42,15 @@ class AbstractStrategyCreationEnvAgents(ABC):
         list(AbstractBaseAgent) list of agents in the environment
 
         """
-        pass
 
     @abstractmethod
     def __hash__(self):
-        pass
+        """abstract method"""
 
     @abstractmethod
     def __eq__(self):
-        pass
+        """abstract method"""
 
     @abstractmethod
     def __str__(self):
-        pass
+        """abstract method"""
