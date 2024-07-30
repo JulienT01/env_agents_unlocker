@@ -64,6 +64,26 @@ class AbstractBaseAgent(ABC):
             if action.get_name() in actions_to_unlock:
                 action.unlock()
 
+    def _get_unlocked_actions(self):
+        """
+        Get a list of all the unlocked actions of this Agent
+
+        ------------ Parameters ------------
+        None
+
+        ------------ Returns ---------------
+        return list[AbstractBaseAction] :
+            the list of all the unlocked actions
+
+        """
+        unlocked_actions = []
+
+        for action in self.potential_actions:
+            if action.is_unlock():
+                unlocked_actions.append(action)
+
+        return unlocked_actions
+
     def get_all_actions_names(self):
         return [action.get_name() for action in self.potential_actions]
 
