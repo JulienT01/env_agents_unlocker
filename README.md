@@ -1,11 +1,37 @@
-# code coverage : 
+# Badges : 
 
 [![codecov](https://codecov.io/github/JulienT01/env_agents_unlocker/graph/badge.svg?token=V1UWCV2E38)](https://codecov.io/github/JulienT01/env_agents_unlocker)
 
 
 
-# env_agents_unlocker
+# ENV AGENT UNLOCKER
 
+1 - Agent principal (ce qu'on test, et qui interéagit avec l'enviroment) : 
+    - actions : Peut prendre des actions (step) qui unlock les actions des agents internes (env_agents) à l'environnement.
+    - rewards : Dépend de ce que réussissent à faire les agents internes (env_agents) à l'environement (la somme des rewards indiv des agents secondaires)
+
+2 - Environnement :
+    - Possède une liste d'agents "internes" qui rapportent des rewards.
+    - Selon les steps pris sur l'environnement, ca peut libérer des actions pour les agents qui y sont.
+
+3 - Agents internes (env_agents) qui sont dans l'environnement:
+    - iste d'actions potentielles (débloquées ou non)
+    - Liste d'action débloquées
+    - une fonction "get_current_reward" que l'agent principal cherche a maximiser (en débloquant les actions disponibles des agents internes) : 
+        - chaque action à une valeur (qui peut être différente ou non entre les agents internes)
+
+4 - Actions des agents :
+    - option "bloquée"/"débloquée"
+
+
+
+
+
+
+
+
+
+# TODO
 
 pour développer l'environmenet:
 https://gymnasium.farama.org/tutorials/gymnasium_basics/environment_creation/
@@ -18,28 +44,22 @@ Penser à rendre les settings personnalisable au maximum.
 
 
 1 - Agent principal (qui interéagit avec l'enviroment) : 
-    - actions : Peut faire des actions (step) qui unlock les actions des agents de l'environnement.
-    - rewards : Dépendent de ce que réussissent à faire les agents de l'environement (somme des rewards indiv des agents secondaires)
+    - done so far
 
 2 - Environnement :
-    - liste d'agents "secondaires"
-    - selon les steps peut libérer les actions "x"
-    - Réfléchir sur les observations qu'il retourne
-    - 
-
+    - Réfléchir sur les observations qu'ils retournent
 
 
 3 - Agents secondaires (qui vivent dans l'environnement):
-    - une liste d'actions potentielles
-    - une liste d'action débloquées
-    - une fonction objectif qu'il cherche a maximiser selon les actions disponible qu'il a: 
-        - le nombre d'action disponnible ?
+    - le nombre d'action disponnible selon les agents ?
+    - ajouter des durées aux actions (pendant 1 step, un agent pourrait faire plusieurs actions basée sur une "durée max par step", et ou chaque action prends une certaine durée)
         - chaque action à une durée et une valeur, et le but est de maximiser les valeurs sur un certains temps donné
 
-4 - Action des agents :
-    - option "bloquée"/"débloquée"
-    - option "pré-requis" (pour que l'action soit réeelement débloqué il faut aussi que les pré-requis le soient)
-    - durée et valeur de l'action  (selon l'agent, elle ne sont pas forcément identiques... tout le monde ne prend pas autant de temps et apporte autant de valeur à chaque action)
+4 - Actions des agents :
+    - ajouté une option de "pré-requis" (pour que l'action soit réeelement débloqué il faut aussi que les pré-requis le soient)
+        -pré-requis étant d'autres agents
+        - d'autres pré-requis ?
+    - durée et valeur de l'action  (selon l'agent, elle ne sont pas forcément identiques... tout les agents ne prennent pas autant de temps et accorde autant de valeurs à chaque action)
 
 
 
