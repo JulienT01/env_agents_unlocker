@@ -6,6 +6,10 @@ from env_agents_unlocker.envs.strategy_creation_env_agents.same_actions_differen
     SameActionsDifferentValuesStrategyCEA,
 )
 
+from env_agents_unlocker.envs.env_agents.basic_agent_with_max_value import (
+    BasicAgentWithMaxValue,
+)
+
 SETUP_STRATEGY_NAME = "same_actions_different_values"
 
 SETUP_NB_AGENTS = 5
@@ -13,6 +17,7 @@ SETUP_NB_ACTION_BY_AGENT = 3
 SETUP_AGENTS_KWARGS = {
     "number_of_agents": SETUP_NB_AGENTS,
     "nb_action_by_agent": SETUP_NB_ACTION_BY_AGENT,
+    "agent_class": BasicAgentWithMaxValue,
 }
 
 
