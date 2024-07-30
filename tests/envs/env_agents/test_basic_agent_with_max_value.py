@@ -111,5 +111,4 @@ class TestBasicAgentWithMaxValue(TestCase):
     def test_str(self):
         assert str(SETUP_AGENT_NAME) in str(self.agent_basic)
         assert str(SETUP_INITIAL_LIST_ACTIONS) in str(self.agent_basic)
-
-        assert str(SETUP_INITIAL_LIST_ACTIONS) in str(self.agent_basic)
+        assert str(BEST_UNLOCKED_VALUE) in str(self.agent_basic)
