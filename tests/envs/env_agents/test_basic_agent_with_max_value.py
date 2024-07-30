@@ -23,6 +23,9 @@ SETUP_LIST_ACTIONS_TO_UNLOCK_WITH_PRE_UNLOCK = [
     SETUP_INITIAL_LIST_ACTIONS_WITH_PRE_UNLOCK[2],
 ]
 BEST_UNLOCKED_VALUE = max(x.value for x in SETUP_LIST_ACTIONS_TO_UNLOCK_WITH_PRE_UNLOCK)
+SETUP_ALL_ACTION_NAME_WITH_PRE_UNLOCK = [
+    action.action_name for action in SETUP_INITIAL_LIST_ACTIONS_WITH_PRE_UNLOCK
+]
 SETUP_LIST_ACTIONS_NAME_TO_UNLOCK_WITH_PRE_UNLOCK = [
     action.action_name for action in SETUP_LIST_ACTIONS_TO_UNLOCK_WITH_PRE_UNLOCK
 ]
@@ -109,6 +112,11 @@ class TestBasicAgentWithMaxValue(TestCase):
         assert self.agent_basic.__hash__() == self.agent_basic_pre_unlock.__hash__()
 
     def test_str(self):
-        assert str(SETUP_AGENT_NAME) in str(self.agent_basic)
-        assert str(SETUP_INITIAL_LIST_ACTIONS) in str(self.agent_basic)
-        assert str(BEST_UNLOCKED_VALUE) in str(self.agent_basic)
+        assert str(SETUP_AGENT_NAME_WITH_PRE_UNLOCK) in str(self.agent_basic_pre_unlock)
+        assert str(SETUP_ALL_ACTION_NAME_WITH_PRE_UNLOCK) in str(
+            self.agent_basic_pre_unlock
+        )
+        assert str(SETUP_LIST_ACTIONS_NAME_TO_UNLOCK_WITH_PRE_UNLOCK) in str(
+            self.agent_basic_pre_unlock
+        )
+        assert str(BEST_UNLOCKED_VALUE) in str(self.agent_basic_pre_unlock)

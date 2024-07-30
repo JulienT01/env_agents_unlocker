@@ -87,6 +87,9 @@ class AbstractBaseAgent(ABC):
     def get_all_actions_names(self):
         return [action.get_name() for action in self.potential_actions]
 
+    def get_all_unlocked_actions_names(self):
+        return [action.get_name() for action in self._get_unlocked_actions()]
+
     @abstractmethod
     def get_current_reward(self):
         """

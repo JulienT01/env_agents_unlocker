@@ -67,7 +67,7 @@ class BasicAgent(AbstractBaseAgent):
             "\n agent name : "
             + str(self.name)
             + "\n potential_actions are : "
-            + str(self.potential_actions)
+            + str(self.get_all_actions_names())
             + "\n unlocked actions are : "
-            + str(self._get_unlocked_actions())
+            + str(self.get_all_unlocked_actions_names())
         )
