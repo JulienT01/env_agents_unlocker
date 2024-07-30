@@ -3,7 +3,7 @@ import copy
 
 
 from env_agents_unlocker.envs.strategy_creation_env_agents.basic_strategy import (
-    BasicStrategyCreationEnvAgents,
+    BasicStrategyCEA,
 )
 
 SETUP_STRATEGY_NAME = "basic_strategy"
@@ -18,9 +18,9 @@ SETUP_AGENTS_KWARGS = {
 }
 
 
-class TestBasicStrategyCreationEnvAgents(TestCase):
+class TestBasicStrategyCEA(TestCase):
     def setUp(self):
-        self.basic_strategy = BasicStrategyCreationEnvAgents(name=SETUP_STRATEGY_NAME)
+        self.basic_strategy = BasicStrategyCEA(name=SETUP_STRATEGY_NAME)
         self.created_list = self.basic_strategy.create_list_of_agents(
             SETUP_AGENTS_KWARGS
         )
@@ -42,7 +42,7 @@ class TestBasicStrategyCreationEnvAgents(TestCase):
         assert len(action_list) == SETUP_NB_AVAILABLE_ACTION_IN_ENV
 
     def test_equals(self):
-        basic_strategy2 = BasicStrategyCreationEnvAgents(name="basic_strategy")
+        basic_strategy2 = BasicStrategyCEA(name="basic_strategy")
 
         assert self.basic_strategy == basic_strategy2
 
@@ -52,7 +52,7 @@ class TestBasicStrategyCreationEnvAgents(TestCase):
 
     def test_hash(self):
         # test only on the action name, other value can be different
-        basic_strategy2 = BasicStrategyCreationEnvAgents(name="basic_strategy")
+        basic_strategy2 = BasicStrategyCEA(name="basic_strategy")
 
         assert self.basic_strategy.__hash__() == basic_strategy2.__hash__()
         basic_strategy2.name += "2"

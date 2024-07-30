@@ -8,7 +8,7 @@ from env_agents_unlocker.envs.strategy_creation_env_agents.abstract_strategy_cre
 import random
 
 
-class BasicStrategyCreationEnvAgents(AbstractStrategyCreationEnvAgents):
+class BasicStrategyCEA(AbstractStrategyCreationEnvAgents):
     def __init__(self, name="basic_strategy"):
         super().__init__(name=name)
 
@@ -60,10 +60,7 @@ class BasicStrategyCreationEnvAgents(AbstractStrategyCreationEnvAgents):
         return basic_agent_list
 
     def __eq__(self, other):
-        return (
-            isinstance(other, BasicStrategyCreationEnvAgents)
-            and self.name == other.name
-        )
+        return isinstance(other, BasicStrategyCEA) and self.name == other.name
 
     def __str__(self):
         return "\n strategy name : " + str(self.name)

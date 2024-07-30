@@ -2,14 +2,14 @@ from unittest import TestCase
 import gymnasium as gym
 
 from env_agents_unlocker.envs.strategy_creation_env_agents.basic_strategy import (
-    BasicStrategyCreationEnvAgents,
+    BasicStrategyCEA,
 )
 
 
 SETUP_NUMBER_ACTION_AVAILABLE_IN_ENV = 40
 SETUP_NUMBER_ACTION_TO_SELECT_BY_AGENT = 20
 SETUP_NUMBER_AGENT_TO_CREATE = 200
-SETUP_STRATEGY_CREATION_AGENTS = BasicStrategyCreationEnvAgents(name="basic_strategy")
+SETUP_STRATEGY_CREATION_AGENTS = BasicStrategyCEA(name="basic_strategy")
 SETUP_ENV_MAX_STEP = 15
 
 
