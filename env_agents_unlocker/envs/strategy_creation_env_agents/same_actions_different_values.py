@@ -1,6 +1,3 @@
-from env_agents_unlocker.envs.env_agents.basic_agent_with_max_value import (
-    BasicAgentWithMaxValue,
-)
 from env_agents_unlocker.envs.env_agents.basic_agent import AbstractBaseAgent
 from env_agents_unlocker.envs.actions.basic_action import BasicAction
 from env_agents_unlocker.envs.strategy_creation_env_agents.abstract_strategy_creation_env_agents import (
@@ -24,6 +21,7 @@ class SameActionsDifferentValuesStrategyCEA(AbstractStrategyCreationEnvAgents):
             parameters specific to create these agents (and actions for theses agent). Here (key):
                 - number_of_agents : the number of Agent in the returned list
                 - nb_action_by_agent : the size of action list for each agent
+                - agent_class : class of expected agent
 
 
         ------------ Returns ---------------
@@ -34,6 +32,7 @@ class SameActionsDifferentValuesStrategyCEA(AbstractStrategyCreationEnvAgents):
         # Extract the args in parameters
         number_of_agent_to_create = agents_kwargs["number_of_agents"]
         nb_action_by_agent = agents_kwargs["nb_action_by_agent"]
+        agent_class = agents_kwargs["agent_class"]
 
         agent_list = []
 
@@ -47,7 +46,7 @@ class SameActionsDifferentValuesStrategyCEA(AbstractStrategyCreationEnvAgents):
                 )
 
             agent_list.append(
-                BasicAgentWithMaxValue(
+                agent_class(
                     name=str(i),
                     potential_actions=actions_for_this_agent,
                     pre_unlock_actions_names=None,

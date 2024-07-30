@@ -3,12 +3,16 @@ import gymnasium as gym
 from env_agents_unlocker.envs.strategy_creation_env_agents.same_actions_different_values import (
     SameActionsDifferentValuesStrategyCEA,
 )
+from env_agents_unlocker.envs.env_agents.basic_agent_with_max_value import (
+    BasicAgentWithMaxValue,
+)
 
 my_strategy = SameActionsDifferentValuesStrategyCEA()
 
 env_agents_kwargs = {
     "number_of_agents": 20,
     "nb_action_by_agent": 1000,
+    "agent_class": BasicAgentWithMaxValue,
 }
 
 env_kwargs = {
