@@ -4,7 +4,7 @@ from env_agents_unlocker.envs.env_agents.abstract_base_agent import (
 from env_agents_unlocker.envs.actions.basic_action import AbstractBaseAction
 
 
-class BasicAgentWithValue(AbstractBaseAgent):
+class BasicAgentWithMaxValue(AbstractBaseAgent):
     def __init__(
         self,
         name: str,

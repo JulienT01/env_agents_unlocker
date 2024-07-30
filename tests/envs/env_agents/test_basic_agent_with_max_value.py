@@ -1,8 +1,8 @@
 from unittest import TestCase
 import copy
 from env_agents_unlocker.envs.actions.basic_action import BasicAction
-from env_agents_unlocker.envs.env_agents.basic_agent_with_value import (
-    BasicAgentWithValue,
+from env_agents_unlocker.envs.env_agents.basic_agent_with_max_value import (
+    BasicAgentWithMaxValue,
 )
 from env_agents_unlocker.envs.env_agents.abstract_base_agent import (
     AbstractBaseAgent,
@@ -28,14 +28,14 @@ SETUP_LIST_ACTIONS_NAME_TO_UNLOCK_WITH_PRE_UNLOCK = [
 ]
 
 
-class TestBasicAgentWithValue(TestCase):
+class TestBasicAgentWithMaxValue(TestCase):
     def setUp(self):
-        self.agent_basic = BasicAgentWithValue(
+        self.agent_basic = BasicAgentWithMaxValue(
             name=SETUP_AGENT_NAME,
             potential_actions=SETUP_INITIAL_LIST_ACTIONS,
             pre_unlock_actions_names=None,
         )
-        self.agent_basic_pre_unlock = BasicAgentWithValue(
+        self.agent_basic_pre_unlock = BasicAgentWithMaxValue(
             name=SETUP_AGENT_NAME_WITH_PRE_UNLOCK,
             potential_actions=SETUP_INITIAL_LIST_ACTIONS_WITH_PRE_UNLOCK,
             pre_unlock_actions_names=SETUP_LIST_ACTIONS_NAME_TO_UNLOCK_WITH_PRE_UNLOCK,
@@ -44,9 +44,9 @@ class TestBasicAgentWithValue(TestCase):
     def test_env_creation(self):
         # check the "setUp" action creation
         assert isinstance(self.agent_basic, AbstractBaseAgent)
-        assert isinstance(self.agent_basic, BasicAgentWithValue)
+        assert isinstance(self.agent_basic, BasicAgentWithMaxValue)
         assert isinstance(self.agent_basic_pre_unlock, AbstractBaseAgent)
-        assert isinstance(self.agent_basic_pre_unlock, BasicAgentWithValue)
+        assert isinstance(self.agent_basic_pre_unlock, BasicAgentWithMaxValue)
 
         assert self.agent_basic.name == SETUP_AGENT_NAME
         assert self.agent_basic.get_unlocked_actions_names() == []

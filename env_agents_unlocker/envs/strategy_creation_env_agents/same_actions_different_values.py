@@ -1,5 +1,5 @@
-from env_agents_unlocker.envs.env_agents.basic_agent_with_value import (
-    BasicAgentWithValue,
+from env_agents_unlocker.envs.env_agents.basic_agent_with_max_value import (
+    BasicAgentWithMaxValue,
 )
 from env_agents_unlocker.envs.env_agents.basic_agent import AbstractBaseAgent
 from env_agents_unlocker.envs.actions.basic_action import BasicAction
@@ -47,7 +47,7 @@ class SameActionsDifferentValuesStrategyCEA(AbstractStrategyCreationEnvAgents):
                 )
 
             agent_list.append(
-                BasicAgentWithValue(
+                BasicAgentWithMaxValue(
                     name=str(i),
                     potential_actions=actions_for_this_agent,
                     pre_unlock_actions_names=None,
