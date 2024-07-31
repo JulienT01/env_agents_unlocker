@@ -18,21 +18,17 @@ class AgentUnlockerEnv(gym.Env):
     def __init__(
         self,
         strategy_creation_env_agents: abstract_strategy_creation_env_agents,
-        strategy_agents_kwargs=None,
         env_max_steps=None,
         render_mode=None,
     ):
         """
         ------------ Parameters ------------
         strategy_creation_env_agents (dict) :
-            object to create the list of Agents living in the environment.
-        strategy_agents_kwargs (dict) :
-            the parameter needed to create the agents living in the environment.
+            The strategy to create and manage the list of Agents living in the environment.
         env_max_steps (int) :
             The number of step before terminating the env
         """
         self.strategy_creation_env_agents = strategy_creation_env_agents
-        self.agents_kwargs = strategy_agents_kwargs
         self.env_max_steps = env_max_steps
         self.current_nb_steps = 0
         self.env_agents = []  # will be initialized in _init_agents()
@@ -48,9 +44,7 @@ class AgentUnlockerEnv(gym.Env):
         self.render_mode = render_mode
 
     def _init_agents(self):
-        self.env_agents = self.strategy_creation_env_agents.create_list_of_agents(
-            self.agents_kwargs
-        )
+        self.env_agents = self.strategy_creation_env_agents.create_new_agent_list()
 
         # get the list of existing action
         temp_action_list = []

@@ -9,12 +9,9 @@ import random
 
 
 class BasicStrategyCEA(AbstractStrategyCreationEnvAgents):
-    def __init__(self, name="basic_strategy"):
-        super().__init__(name=name)
-
-    def create_list_of_agents(self, agents_kwargs: dict) -> list[AbstractBaseAgent]:
+    def __init__(self, agents_kwargs: dict, name="basic_strategy"):
         """
-        Get a list of basic agents that all have the same kind of basic (locked) actions.
+        Create a list of basic agents that all have the same kind of basic (locked) actions.
         It will be a list of BasicAgent, where each of them have a list of BasicAction  (subpart of all the same BasicAction available).
 
         ------------ Parameters ------------
@@ -30,11 +27,33 @@ class BasicStrategyCEA(AbstractStrategyCreationEnvAgents):
         list(AbstractBaseAgent) list of agents in the environment
 
         """
+        super().__init__(agents_kwargs=agents_kwargs, name=name)
+        self.agent_list = self._create_list_of_agents()
+
+    def get_list_of_agents(self) -> list[AbstractBaseAgent]:
+        """
+            Get the list of agent created by the strategy
+        ------------ Parameters ------------
+        None
+
+        ------------ Returns ---------------
+        list(AbstractBaseAgent) :
+        list(AbstractBaseAgent) list of agents in the environment
+        """
+        return self.agent_list
+
+    def create_new_agent_list(self):
+        self.agent_list = self._create_list_of_agents()
+        return self.agent_list
+
+    def _create_list_of_agents(
+        self,
+    ) -> list[AbstractBaseAgent]:
         (
             number_of_agent_to_create,
             nb_available_action_in_env,
             nb_action_to_select_by_agent,
-        ) = self._extract_kwargs(agents_kwargs)
+        ) = self._extract_kwargs(self.agents_kwargs)
 
         basic_agent_list = []
 

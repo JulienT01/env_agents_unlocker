@@ -9,7 +9,7 @@ from env_agents_unlocker.envs.strategy_creation_env_agents.basic_strategy import
 SETUP_NUMBER_ACTION_AVAILABLE_IN_ENV = 40
 SETUP_NUMBER_ACTION_TO_SELECT_BY_AGENT = 20
 SETUP_NUMBER_AGENT_TO_CREATE = 200
-SETUP_STRATEGY_CREATION_AGENTS = BasicStrategyCEA(name="basic_strategy")
+
 SETUP_ENV_MAX_STEP = 15
 
 
@@ -20,10 +20,11 @@ class AgentUnlockerEnv(TestCase):
             "nb_available_action_in_env": SETUP_NUMBER_ACTION_AVAILABLE_IN_ENV,
             "nb_action_to_select_by_agent": SETUP_NUMBER_ACTION_TO_SELECT_BY_AGENT,
         }
-
+        strategy = BasicStrategyCEA(
+            agents_kwargs=env_agents_kwargs, name="basic_strategy"
+        )
         env_kwargs = {
-            "strategy_creation_env_agents": SETUP_STRATEGY_CREATION_AGENTS,
-            "strategy_agents_kwargs": env_agents_kwargs,
+            "strategy_creation_env_agents": strategy,
             "env_max_steps": SETUP_ENV_MAX_STEP,
         }
 

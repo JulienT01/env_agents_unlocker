@@ -7,17 +7,17 @@ from env_agents_unlocker.envs.env_agents.basic_agent_with_cum_value import (
     BasicAgentWithCumValue,
 )
 
-my_strategy = SameActionsDifferentValuesStrategyCEA()
-
 env_agents_kwargs = {
     "number_of_agents": 20,
     "nb_action_by_agent": 1000,
     "agent_class": BasicAgentWithCumValue,
 }
 
+
+my_strategy = SameActionsDifferentValuesStrategyCEA(agents_kwargs=env_agents_kwargs)
+
 env_kwargs = {
     "strategy_creation_env_agents": my_strategy,
-    "strategy_agents_kwargs": env_agents_kwargs,
     "env_max_steps": 100,
 }
 

@@ -13,34 +13,59 @@ from env_agents_unlocker.envs.env_agents.abstract_base_agent import AbstractBase
 
 class AbstractStrategyCreationEnvAgents(ABC):
     """
-    Base class for all Agents living in the environment.
-    The other agent should inherit from this class
+    Base class for all Strategy to manage the creation of Agent living in the environment.
+    The created strategies should inherit from this class
     """
 
     def __init__(
         self,
+        agents_kwargs: dict,
         name: str,
     ) -> None:
         """
         ------------ Parameters ------------
         name (str):
             The name of the strategy
+        agents_kwargs (dict) :
+            parameters specific to create these agents (and actions for theses agent)
         """
+        self.agents_kwargs = agents_kwargs
         self.name = name
 
     @abstractmethod
-    def create_list_of_agents(agents_kwargs: dict) -> list[AbstractBaseAgent]:
+    def _create_list_of_agents() -> list[AbstractBaseAgent]:
         """
-            Main function in charge to give the expected list of Agent(inherited from AbstractBaseAgent)
+            Function in charge to create the expected list of Agent(inherited from AbstractBaseAgent)
 
         ------------ Parameters ------------
-        agents_kwargs (dict) :
-            parameters specific to create these agents (and actions for theses agent)
 
         ------------ Returns ---------------
         list(AbstractBaseAgent) :
         list(AbstractBaseAgent) list of agents in the environment
+        """
 
+    @abstractmethod
+    def get_list_of_agents() -> list[AbstractBaseAgent]:
+        """
+            Get the list of agent created by the strategy
+        ------------ Parameters ------------
+        None
+
+        ------------ Returns ---------------
+        list(AbstractBaseAgent) :
+        list(AbstractBaseAgent) list of agents in the environment
+        """
+
+    @abstractmethod
+    def create_new_agent_list() -> list[AbstractBaseAgent]:
+        """
+        Replace the previous list, by a new one (to call on the reset)
+        ------------ Parameters ------------
+        None
+
+        ------------ Returns ---------------
+        list(AbstractBaseAgent) :
+        list(AbstractBaseAgent) list of agents in the environment
         """
 
     @abstractmethod

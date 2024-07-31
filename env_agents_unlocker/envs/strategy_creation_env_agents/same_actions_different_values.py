@@ -8,12 +8,9 @@ import random
 
 
 class SameActionsDifferentValuesStrategyCEA(AbstractStrategyCreationEnvAgents):
-    def __init__(self, name="same_actions_different_values"):
-        super().__init__(name=name)
-
-    def create_list_of_agents(self, agents_kwargs: dict) -> list[AbstractBaseAgent]:
+    def __init__(self, agents_kwargs: dict, name="same_actions_different_values"):
         """
-        Get a list of basic agents that all have the same (locked) actions.
+        Create a list of agents that all have the same (locked) actions.
         It will be a list of BasicAgent, where each of them have the same list of BasicAction, but with different values for each action and agent
 
         ------------ Parameters ------------
@@ -28,11 +25,31 @@ class SameActionsDifferentValuesStrategyCEA(AbstractStrategyCreationEnvAgents):
         list(AbstractBaseAgent) :
         list(AbstractBaseAgent) list of agents in the environment
         """
+        super().__init__(agents_kwargs=agents_kwargs, name=name)
+        self.agent_list = self._create_list_of_agents()
+
+    def get_list_of_agents(self) -> list[AbstractBaseAgent]:
+        """
+            Get the list of agent created by the strategy
+        ------------ Parameters ------------
+        None
+
+        ------------ Returns ---------------
+        list(AbstractBaseAgent) :
+        list(AbstractBaseAgent) list of agents in the environment
+        """
+        return self.agent_list
+
+    def create_new_agent_list(self):
+        self.agent_list = self._create_list_of_agents()
+        return self.agent_list
+
+    def _create_list_of_agents(self) -> list[AbstractBaseAgent]:
         (
             number_of_agent_to_create,
             nb_action_by_agent,
             agent_class,
-        ) = self._extract_kwargs(agents_kwargs)
+        ) = self._extract_kwargs(self.agents_kwargs)
 
         agent_list = []
 

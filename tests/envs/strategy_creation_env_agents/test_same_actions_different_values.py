@@ -24,16 +24,13 @@ SETUP_AGENTS_KWARGS = {
 class TestSameActionsDifferentValuesStrategyCEA(TestCase):
     def setUp(self):
         self.s_a_d_v_strategy = SameActionsDifferentValuesStrategyCEA(
-            name=SETUP_STRATEGY_NAME
-        )
-        self.created_list = self.s_a_d_v_strategy.create_list_of_agents(
-            SETUP_AGENTS_KWARGS
+            agents_kwargs=SETUP_AGENTS_KWARGS, name=SETUP_STRATEGY_NAME
         )
 
     def test_create_list_of_agents(self):
-        assert len(self.created_list) == SETUP_NB_AGENTS
+        assert len(self.s_a_d_v_strategy.get_list_of_agents()) == SETUP_NB_AGENTS
         assert (
-            len(self.created_list[0].get_all_actions_names())
+            len(self.s_a_d_v_strategy.get_list_of_agents()[0].get_all_actions_names())
             == SETUP_NB_ACTION_BY_AGENT
         )
 
@@ -43,8 +40,8 @@ class TestSameActionsDifferentValuesStrategyCEA(TestCase):
             "agent_class": BasicAgentWithMaxValue,
         }
         with pytest.raises(KeyError) as error:
-            self.created_list = self.s_a_d_v_strategy.create_list_of_agents(
-                missing_number_of_agent_kwargs
+            self.s_a_d_v_strategy = SameActionsDifferentValuesStrategyCEA(
+                agents_kwargs=missing_number_of_agent_kwargs, name=SETUP_STRATEGY_NAME
             )
         assert SETUP_STRATEGY_NAME in str(error)
         assert "Missing 'agents_kwargs' element" in str(error)
@@ -54,8 +51,8 @@ class TestSameActionsDifferentValuesStrategyCEA(TestCase):
             "agent_class": BasicAgentWithMaxValue,
         }
         with pytest.raises(KeyError) as error2:
-            self.created_list = self.s_a_d_v_strategy.create_list_of_agents(
-                missing_nb_of_action_kwargs
+            self.s_a_d_v_strategy = SameActionsDifferentValuesStrategyCEA(
+                agents_kwargs=missing_nb_of_action_kwargs, name=SETUP_STRATEGY_NAME
             )
         assert SETUP_STRATEGY_NAME in str(error2)
         assert "Missing 'agents_kwargs' element" in str(error2)
@@ -65,15 +62,15 @@ class TestSameActionsDifferentValuesStrategyCEA(TestCase):
             "nb_action_by_agent": SETUP_NB_ACTION_BY_AGENT,
         }
         with pytest.raises(KeyError) as error3:
-            self.created_list = self.s_a_d_v_strategy.create_list_of_agents(
-                missing_agent_class_kwargs
+            self.s_a_d_v_strategy = SameActionsDifferentValuesStrategyCEA(
+                agents_kwargs=missing_agent_class_kwargs, name=SETUP_STRATEGY_NAME
             )
         assert SETUP_STRATEGY_NAME in str(error3)
         assert "Missing 'agents_kwargs' element" in str(error3)
 
     def test_equals(self):
         s_a_d_v_strategy2 = SameActionsDifferentValuesStrategyCEA(
-            name="same_actions_different_values"
+            agents_kwargs=SETUP_AGENTS_KWARGS, name="same_actions_different_values"
         )
 
         assert self.s_a_d_v_strategy == s_a_d_v_strategy2
@@ -85,7 +82,7 @@ class TestSameActionsDifferentValuesStrategyCEA(TestCase):
     def test_hash(self):
         # test only on the action name, other value can be different
         s_a_d_v_strategy2 = SameActionsDifferentValuesStrategyCEA(
-            name="same_actions_different_values"
+            agents_kwargs=SETUP_AGENTS_KWARGS, name="same_actions_different_values"
         )
 
         assert self.s_a_d_v_strategy.__hash__() == s_a_d_v_strategy2.__hash__()

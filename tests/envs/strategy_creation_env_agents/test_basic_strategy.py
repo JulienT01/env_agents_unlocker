@@ -20,21 +20,20 @@ SETUP_AGENTS_KWARGS = {
 
 class TestBasicStrategyCEA(TestCase):
     def setUp(self):
-        self.basic_strategy = BasicStrategyCEA(name=SETUP_STRATEGY_NAME)
-        self.created_list = self.basic_strategy.create_list_of_agents(
-            SETUP_AGENTS_KWARGS
+        self.basic_strategy = BasicStrategyCEA(
+            agents_kwargs=SETUP_AGENTS_KWARGS, name=SETUP_STRATEGY_NAME
         )
 
     def test_create_list_of_agents(self):
-        assert len(self.created_list) == SETUP_NB_AGENTS
+        assert len(self.basic_strategy.get_list_of_agents()) == SETUP_NB_AGENTS
         assert (
-            len(self.created_list[0].get_all_actions_names())
+            len(self.basic_strategy.get_list_of_agents()[0].get_all_actions_names())
             == SETUP_NB_ACTION_TO_SELECT_BY_AGENT
         )
 
         # get the list of existing action
         temp_action_list = []
-        for agent in self.created_list:
+        for agent in self.basic_strategy.get_list_of_agents():
             temp_action_list += agent.get_all_actions_names()
         # make all actions unique
         action_list = list(set(temp_action_list))
@@ -47,8 +46,8 @@ class TestBasicStrategyCEA(TestCase):
             "nb_action_to_select_by_agent": SETUP_NB_ACTION_TO_SELECT_BY_AGENT,
         }
         with pytest.raises(KeyError) as error:
-            self.created_list = self.basic_strategy.create_list_of_agents(
-                missing_number_of_agent_kwargs
+            self.basic_strategy = BasicStrategyCEA(
+                agents_kwargs=missing_number_of_agent_kwargs, name=SETUP_STRATEGY_NAME
             )
         assert SETUP_STRATEGY_NAME in str(error)
         assert "Missing 'agents_kwargs' element" in str(error)
@@ -58,8 +57,9 @@ class TestBasicStrategyCEA(TestCase):
             "nb_action_to_select_by_agent": SETUP_NB_ACTION_TO_SELECT_BY_AGENT,
         }
         with pytest.raises(KeyError) as error2:
-            self.created_list = self.basic_strategy.create_list_of_agents(
-                missing_nb_available_action_kwargs
+            self.basic_strategy = BasicStrategyCEA(
+                agents_kwargs=missing_nb_available_action_kwargs,
+                name=SETUP_STRATEGY_NAME,
             )
         assert SETUP_STRATEGY_NAME in str(error2)
         assert "Missing 'agents_kwargs' element" in str(error2)
@@ -69,14 +69,17 @@ class TestBasicStrategyCEA(TestCase):
             "nb_available_action_in_env": SETUP_NB_AVAILABLE_ACTION_IN_ENV,
         }
         with pytest.raises(KeyError) as error3:
-            self.created_list = self.basic_strategy.create_list_of_agents(
-                missing_action_to_select_by_agent_kwargs
+            self.basic_strategy = BasicStrategyCEA(
+                agents_kwargs=missing_action_to_select_by_agent_kwargs,
+                name=SETUP_STRATEGY_NAME,
             )
         assert SETUP_STRATEGY_NAME in str(error3)
         assert "Missing 'agents_kwargs' element" in str(error3)
 
     def test_equals(self):
-        basic_strategy2 = BasicStrategyCEA(name="basic_strategy")
+        basic_strategy2 = BasicStrategyCEA(
+            agents_kwargs=SETUP_AGENTS_KWARGS, name="basic_strategy"
+        )
 
         assert self.basic_strategy == basic_strategy2
 
@@ -86,7 +89,9 @@ class TestBasicStrategyCEA(TestCase):
 
     def test_hash(self):
         # test only on the action name, other value can be different
-        basic_strategy2 = BasicStrategyCEA(name="basic_strategy")
+        basic_strategy2 = BasicStrategyCEA(
+            agents_kwargs=SETUP_AGENTS_KWARGS, name="basic_strategy"
+        )
 
         assert self.basic_strategy.__hash__() == basic_strategy2.__hash__()
         basic_strategy2.name += "2"
