@@ -36,9 +36,9 @@ class AgentUnlockerEnv(TestCase):
 
         assert isinstance(self.env, gym.Env)
         assert self.env.action_space.n == SETUP_NUMBER_ACTION_AVAILABLE_IN_ENV
-        assert len(self.env.env_agents) == SETUP_NUMBER_AGENT_TO_CREATE
+        assert len(self.env.unwrapped.env_agents) == SETUP_NUMBER_AGENT_TO_CREATE
         assert (
-            len(self.env.env_agents[0].get_all_actions_names())
+            len(self.env.unwrapped.env_agents[0].get_all_actions_names())
             == SETUP_NUMBER_ACTION_TO_SELECT_BY_AGENT
         )
 
@@ -56,40 +56,47 @@ class AgentUnlockerEnv(TestCase):
     def test_env_step(self):
         self.env.reset()
         assert (
-            self.env.env_agents[0].get_current_reward() == 0
+            self.env.unwrapped.env_agents[0].get_current_reward() == 0
         )  # basic_agent get 1 point per unlocked action: so 0 after a reset
 
-        action_name_to_unlock = self.env.env_agents[0].get_all_actions_names()[
+        action_name_to_unlock = self.env.unwrapped.env_agents[
+            0
+        ].get_all_actions_names()[
             0
         ]  # get the first action of the first agent to unlock
         assert (
-            action_name_to_unlock not in self.env.env_agents[0]._get_unlocked_actions()
+            action_name_to_unlock
+            not in self.env.unwrapped.env_agents[0]._get_unlocked_actions()
         )
 
-        action_id = self.env.get_action_id_from_name(action_name_to_unlock)
+        action_id = self.env.unwrapped.get_action_id_from_name(action_name_to_unlock)
         self.env.step(action_id)
 
         assert (
-            action_name_to_unlock in self.env.env_agents[0].get_unlocked_actions_names()
+            action_name_to_unlock
+            in self.env.unwrapped.env_agents[0].get_unlocked_actions_names()
         )
-        assert self.env.env_agents[0].get_current_reward() == 1
+        assert self.env.unwrapped.env_agents[0].get_current_reward() == 1
 
     def test_env_reset(self):
         self.env.reset()
 
-        action_name_to_unlock = self.env.env_agents[0].get_all_actions_names()[
+        action_name_to_unlock = self.env.unwrapped.env_agents[
+            0
+        ].get_all_actions_names()[
             0
         ]  # get the first action of the first agent to unlock
-        action_id = self.env.get_action_id_from_name(action_name_to_unlock)
+        action_id = self.env.unwrapped.get_action_id_from_name(action_name_to_unlock)
         self.env.step(action_id)
 
         # check that 1 action was unlock
         assert (
-            action_name_to_unlock in self.env.env_agents[0].get_unlocked_actions_names()
+            action_name_to_unlock
+            in self.env.unwrapped.env_agents[0].get_unlocked_actions_names()
         )
-        assert self.env.env_agents[0].get_current_reward() == 1
+        assert self.env.unwrapped.env_agents[0].get_current_reward() == 1
 
         self.env.reset()
 
-        assert len(self.env.env_agents[0].get_unlocked_actions_names()) == 0
-        assert self.env.env_agents[0].get_current_reward() == 0
+        assert len(self.env.unwrapped.env_agents[0].get_unlocked_actions_names()) == 0
+        assert self.env.unwrapped.env_agents[0].get_current_reward() == 0
