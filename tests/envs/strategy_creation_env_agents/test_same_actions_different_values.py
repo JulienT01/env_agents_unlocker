@@ -34,6 +34,12 @@ class TestSameActionsDifferentValuesStrategyCEA(TestCase):
             == SETUP_NB_ACTION_BY_AGENT
         )
 
+    def test_create_new_agent_list(self):
+        initial_list = self.s_a_d_v_strategy.get_list_of_agents()
+        assert initial_list == self.s_a_d_v_strategy.get_list_of_agents()
+        self.s_a_d_v_strategy.create_new_agent_list()
+        assert initial_list != self.s_a_d_v_strategy.get_list_of_agents()
+
     def test_create_list_of_agents__missing_kwargs(self):
         missing_number_of_agent_kwargs = {
             "nb_action_by_agent": SETUP_NB_ACTION_BY_AGENT,

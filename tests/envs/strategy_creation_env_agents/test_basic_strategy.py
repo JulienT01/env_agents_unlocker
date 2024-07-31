@@ -40,6 +40,12 @@ class TestBasicStrategyCEA(TestCase):
 
         assert len(action_list) == SETUP_NB_AVAILABLE_ACTION_IN_ENV
 
+    def test_create_new_agent_list(self):
+        initial_list = self.basic_strategy.get_list_of_agents()
+        assert initial_list == self.basic_strategy.get_list_of_agents()
+        self.basic_strategy.create_new_agent_list()
+        assert initial_list != self.basic_strategy.get_list_of_agents()
+
     def test_create_list_of_agents__missing_kwargs(self):
         missing_number_of_agent_kwargs = {
             "nb_available_action_in_env": SETUP_NB_AVAILABLE_ACTION_IN_ENV,
