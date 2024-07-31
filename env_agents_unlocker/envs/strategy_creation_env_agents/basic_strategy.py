@@ -20,9 +20,9 @@ class BasicStrategyCEA(AbstractStrategyCreationEnvAgents):
         ------------ Parameters ------------
         agents_kwargs (dict) :
             parameters specific to create these agents (and actions for theses agent). Here (key):
-                - nb_available_action_in_env : the size of all available actions
-                - nb_action_to_select_by_agent : the size of action list for each agent
-                - number_of_agents : the number of Agent in the returned list
+                - nb_available_action_in_env (int): the size of all available actions
+                - nb_action_to_select_by_agent (int): the size of action list for each agent
+                - number_of_agents (int): the number of Agent in the returned list
 
 
         ------------ Returns ---------------
@@ -30,10 +30,11 @@ class BasicStrategyCEA(AbstractStrategyCreationEnvAgents):
         list(AbstractBaseAgent) list of agents in the environment
 
         """
-        # Extract the args in parameters
-        number_of_agent_to_create = agents_kwargs["number_of_agents"]
-        nb_available_action_in_env = agents_kwargs["nb_available_action_in_env"]
-        nb_action_to_select_by_agent = agents_kwargs["nb_action_to_select_by_agent"]
+        (
+            number_of_agent_to_create,
+            nb_available_action_in_env,
+            nb_action_to_select_by_agent,
+        ) = self._extract_kwargs(agents_kwargs)
 
         basic_agent_list = []
 
@@ -58,6 +59,24 @@ class BasicStrategyCEA(AbstractStrategyCreationEnvAgents):
                 )
             )
         return basic_agent_list
+
+    def _extract_kwargs(self, agents_kwargs):
+        try:
+            # Extract the args in parameters
+            number_of_agent_to_create = agents_kwargs["number_of_agents"]
+            nb_available_action_in_env = agents_kwargs["nb_available_action_in_env"]
+            nb_action_to_select_by_agent = agents_kwargs["nb_action_to_select_by_agent"]
+            return (
+                number_of_agent_to_create,
+                nb_available_action_in_env,
+                nb_action_to_select_by_agent,
+            )
+        except KeyError as err:
+            error_message = (
+                "Missing 'agents_kwargs' element for 'basic_strategy' : \n " + str(err)
+            )
+            print(error_message)
+            raise KeyError(error_message)
 
     def __eq__(self, other):
         return isinstance(other, BasicStrategyCEA) and self.name == other.name

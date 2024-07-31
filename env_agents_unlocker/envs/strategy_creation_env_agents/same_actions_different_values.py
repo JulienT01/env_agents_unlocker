@@ -19,20 +19,20 @@ class SameActionsDifferentValuesStrategyCEA(AbstractStrategyCreationEnvAgents):
         ------------ Parameters ------------
         agents_kwargs (dict) :
             parameters specific to create these agents (and actions for theses agent). Here (key):
-                - number_of_agents : the number of Agent in the returned list
-                - nb_action_by_agent : the size of action list for each agent
-                - agent_class : class of expected agent
+                - number_of_agents (int) : the number of Agent in the returned list
+                - nb_action_by_agent (int): the size of action list for each agent
+                - agent_class (subclass of AbstractBaseAgent): class of expected agent to instantiate
 
 
         ------------ Returns ---------------
         list(AbstractBaseAgent) :
         list(AbstractBaseAgent) list of agents in the environment
-
         """
-        # Extract the args in parameters
-        number_of_agent_to_create = agents_kwargs["number_of_agents"]
-        nb_action_by_agent = agents_kwargs["nb_action_by_agent"]
-        agent_class = agents_kwargs["agent_class"]
+        (
+            number_of_agent_to_create,
+            nb_action_by_agent,
+            agent_class,
+        ) = self._extract_kwargs(agents_kwargs)
 
         agent_list = []
 
@@ -53,6 +53,21 @@ class SameActionsDifferentValuesStrategyCEA(AbstractStrategyCreationEnvAgents):
                 )
             )
         return agent_list
+
+    def _extract_kwargs(self, agents_kwargs):
+        try:
+            # Extract the args in parameters
+            number_of_agent_to_create = agents_kwargs["number_of_agents"]
+            nb_action_by_agent = agents_kwargs["nb_action_by_agent"]
+            agent_class = agents_kwargs["agent_class"]
+            return number_of_agent_to_create, nb_action_by_agent, agent_class
+        except KeyError as err:
+            error_message = (
+                "Missing 'agents_kwargs' element for 'same_actions_different_values' strategy : \n "
+                + str(err)
+            )
+            print(error_message)
+            raise KeyError(error_message)
 
     def _generate_random_value(self):
         return random.randint(0, 100)

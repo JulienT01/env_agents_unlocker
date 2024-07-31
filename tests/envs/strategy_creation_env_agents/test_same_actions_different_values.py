@@ -1,6 +1,6 @@
 from unittest import TestCase
 import copy
-
+import pytest
 
 from env_agents_unlocker.envs.strategy_creation_env_agents.same_actions_different_values import (
     SameActionsDifferentValuesStrategyCEA,
@@ -36,6 +36,40 @@ class TestSameActionsDifferentValuesStrategyCEA(TestCase):
             len(self.created_list[0].get_all_actions_names())
             == SETUP_NB_ACTION_BY_AGENT
         )
+
+    def test_create_list_of_agents__missing_kwargs(self):
+        missing_number_of_agent_kwargs = {
+            "nb_action_by_agent": SETUP_NB_ACTION_BY_AGENT,
+            "agent_class": BasicAgentWithMaxValue,
+        }
+        with pytest.raises(KeyError) as error:
+            self.created_list = self.s_a_d_v_strategy.create_list_of_agents(
+                missing_number_of_agent_kwargs
+            )
+        assert SETUP_STRATEGY_NAME in str(error)
+        assert "Missing 'agents_kwargs' element" in str(error)
+
+        missing_nb_of_action_kwargs = {
+            "number_of_agents": SETUP_NB_AGENTS,
+            "agent_class": BasicAgentWithMaxValue,
+        }
+        with pytest.raises(KeyError) as error2:
+            self.created_list = self.s_a_d_v_strategy.create_list_of_agents(
+                missing_nb_of_action_kwargs
+            )
+        assert SETUP_STRATEGY_NAME in str(error2)
+        assert "Missing 'agents_kwargs' element" in str(error2)
+
+        missing_agent_class_kwargs = {
+            "number_of_agents": SETUP_NB_AGENTS,
+            "nb_action_by_agent": SETUP_NB_ACTION_BY_AGENT,
+        }
+        with pytest.raises(KeyError) as error3:
+            self.created_list = self.s_a_d_v_strategy.create_list_of_agents(
+                missing_agent_class_kwargs
+            )
+        assert SETUP_STRATEGY_NAME in str(error3)
+        assert "Missing 'agents_kwargs' element" in str(error3)
 
     def test_equals(self):
         s_a_d_v_strategy2 = SameActionsDifferentValuesStrategyCEA(

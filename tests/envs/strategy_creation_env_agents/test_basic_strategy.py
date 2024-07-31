@@ -1,6 +1,6 @@
 from unittest import TestCase
 import copy
-
+import pytest
 
 from env_agents_unlocker.envs.strategy_creation_env_agents.basic_strategy import (
     BasicStrategyCEA,
@@ -40,6 +40,40 @@ class TestBasicStrategyCEA(TestCase):
         action_list = list(set(temp_action_list))
 
         assert len(action_list) == SETUP_NB_AVAILABLE_ACTION_IN_ENV
+
+    def test_create_list_of_agents__missing_kwargs(self):
+        missing_number_of_agent_kwargs = {
+            "nb_available_action_in_env": SETUP_NB_AVAILABLE_ACTION_IN_ENV,
+            "nb_action_to_select_by_agent": SETUP_NB_ACTION_TO_SELECT_BY_AGENT,
+        }
+        with pytest.raises(KeyError) as error:
+            self.created_list = self.basic_strategy.create_list_of_agents(
+                missing_number_of_agent_kwargs
+            )
+        assert SETUP_STRATEGY_NAME in str(error)
+        assert "Missing 'agents_kwargs' element" in str(error)
+
+        missing_nb_available_action_kwargs = {
+            "number_of_agents": SETUP_NB_AGENTS,
+            "nb_action_to_select_by_agent": SETUP_NB_ACTION_TO_SELECT_BY_AGENT,
+        }
+        with pytest.raises(KeyError) as error2:
+            self.created_list = self.basic_strategy.create_list_of_agents(
+                missing_nb_available_action_kwargs
+            )
+        assert SETUP_STRATEGY_NAME in str(error2)
+        assert "Missing 'agents_kwargs' element" in str(error2)
+
+        missing_action_to_select_by_agent_kwargs = {
+            "number_of_agents": SETUP_NB_AGENTS,
+            "nb_available_action_in_env": SETUP_NB_AVAILABLE_ACTION_IN_ENV,
+        }
+        with pytest.raises(KeyError) as error3:
+            self.created_list = self.basic_strategy.create_list_of_agents(
+                missing_action_to_select_by_agent_kwargs
+            )
+        assert SETUP_STRATEGY_NAME in str(error3)
+        assert "Missing 'agents_kwargs' element" in str(error3)
 
     def test_equals(self):
         basic_strategy2 = BasicStrategyCEA(name="basic_strategy")
