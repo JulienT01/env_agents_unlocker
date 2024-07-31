@@ -57,7 +57,7 @@ class AgentUnlockerEnv(TestCase):
     def test_env_step(self):
         self.env.reset()
         assert (
-            self.env.unwrapped.env_agents[0].get_current_reward() == 0
+            self.env.unwrapped.env_agents[0].get_current_value() == 0
         )  # basic_agent get 1 point per unlocked action: so 0 after a reset
 
         action_name_to_unlock = self.env.unwrapped.env_agents[
@@ -77,7 +77,7 @@ class AgentUnlockerEnv(TestCase):
             action_name_to_unlock
             in self.env.unwrapped.env_agents[0].get_unlocked_actions_names()
         )
-        assert self.env.unwrapped.env_agents[0].get_current_reward() == 1
+        assert self.env.unwrapped.env_agents[0].get_current_value() == 1
 
     def test_env_reset(self):
         self.env.reset()
@@ -95,9 +95,9 @@ class AgentUnlockerEnv(TestCase):
             action_name_to_unlock
             in self.env.unwrapped.env_agents[0].get_unlocked_actions_names()
         )
-        assert self.env.unwrapped.env_agents[0].get_current_reward() == 1
+        assert self.env.unwrapped.env_agents[0].get_current_value() == 1
 
         self.env.reset()
 
         assert len(self.env.unwrapped.env_agents[0].get_unlocked_actions_names()) == 0
-        assert self.env.unwrapped.env_agents[0].get_current_reward() == 0
+        assert self.env.unwrapped.env_agents[0].get_current_value() == 0

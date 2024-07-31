@@ -111,12 +111,6 @@ class AgentUnlockerEnv(gym.Env):
 
         return observation, info
 
-    def _sum_all_agents_rewards(self):
-        sum_rewards = 0
-        for agent in self.env_agents:
-            sum_rewards += agent.get_current_reward()
-        return sum_rewards
-
     def get_action_id_from_name(self, action_name):
         return self._action_name_to_action_id[action_name]
 
@@ -124,6 +118,10 @@ class AgentUnlockerEnv(gym.Env):
     #     return self._action_id_to_action_name[action_id]
 
     def step(self, action_id):
+        previous_env_value = (
+            self.strategy_creation_env_agents.compute_env_current_value()
+        )
+
         # Map the action (element of {0,1,2,3}) to the direction we walk in
         action_to_unlock = self._action_id_to_action_name[action_id]
 
@@ -132,9 +130,11 @@ class AgentUnlockerEnv(gym.Env):
 
         self.current_nb_steps += 1
 
+        new_env_value = self.strategy_creation_env_agents.compute_env_current_value()
+
         # An episode is done if the current number of steps is superior to the env_max_steps value
         terminated = True if (self.current_nb_steps >= self.env_max_steps) else False
-        reward = self._sum_all_agents_rewards()
+        reward = new_env_value - previous_env_value
         observation = self._get_obs()
         info = self._get_info()
 

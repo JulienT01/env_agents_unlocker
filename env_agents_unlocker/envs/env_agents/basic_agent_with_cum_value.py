@@ -23,9 +23,9 @@ class BasicAgentWithCumValue(AbstractBaseAgent):
         """
         super().__init__(name, potential_actions, pre_unlock_actions_names)
 
-    def get_current_reward(self):
+    def get_current_value(self):
         """
-        The current reward is the sum of the value from unlocked actions
+        The current value is the sum of the value from unlocked actions
 
         ------------ Parameters ------------
         None

@@ -91,7 +91,7 @@ class AbstractBaseAgent(ABC):
         return [action.get_name() for action in self._get_unlocked_actions()]
 
     @abstractmethod
-    def get_current_reward(self):
+    def get_current_value(self):
         """
         Abstract method : return a score on "how the agent did with the current unlocked actions"
         """

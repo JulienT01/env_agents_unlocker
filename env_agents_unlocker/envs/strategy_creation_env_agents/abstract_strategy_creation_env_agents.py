@@ -33,7 +33,7 @@ class AbstractStrategyCreationEnvAgents(ABC):
         self.name = name
 
     @abstractmethod
-    def _create_list_of_agents() -> list[AbstractBaseAgent]:
+    def _create_list_of_agents(self) -> list[AbstractBaseAgent]:
         """
             Function in charge to create the expected list of Agent(inherited from AbstractBaseAgent)
 
@@ -45,7 +45,7 @@ class AbstractStrategyCreationEnvAgents(ABC):
         """
 
     @abstractmethod
-    def get_list_of_agents() -> list[AbstractBaseAgent]:
+    def get_list_of_agents(self) -> list[AbstractBaseAgent]:
         """
             Get the list of agent created by the strategy
         ------------ Parameters ------------
@@ -57,7 +57,7 @@ class AbstractStrategyCreationEnvAgents(ABC):
         """
 
     @abstractmethod
-    def create_new_agent_list() -> list[AbstractBaseAgent]:
+    def create_new_agent_list(self) -> list[AbstractBaseAgent]:
         """
         Replace the previous list, by a new one (to call on the reset)
         ------------ Parameters ------------
@@ -67,6 +67,10 @@ class AbstractStrategyCreationEnvAgents(ABC):
         list(AbstractBaseAgent) :
         list(AbstractBaseAgent) list of agents in the environment
         """
+
+    @abstractmethod
+    def compute_env_current_value(self):
+        """abstract method : how to compute the reward of the environment"""
 
     @abstractmethod
     def __hash__(self):

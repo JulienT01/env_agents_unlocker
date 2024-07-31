@@ -42,6 +42,15 @@ class BasicStrategyCEA(AbstractStrategyCreationEnvAgents):
         """
         return self.agent_list
 
+    def compute_env_current_value(self):
+        """
+        The value of the current state of the env is the sum of the agents current value
+        """
+        sum_rewards = 0
+        for agent in self.agent_list:
+            sum_rewards += agent.get_current_value()
+        return sum_rewards
+
     def create_new_agent_list(self):
         self.agent_list = self._create_list_of_agents()
         return self.agent_list

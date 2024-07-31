@@ -53,28 +53,28 @@ class TestBasicAgentWithMaxValue(TestCase):
 
         assert self.agent_basic.name == SETUP_AGENT_NAME
         assert self.agent_basic.get_unlocked_actions_names() == []
-        assert self.agent_basic.get_current_reward() is None
+        assert self.agent_basic.get_current_value() is None
 
         assert self.agent_basic_pre_unlock.name == SETUP_AGENT_NAME_WITH_PRE_UNLOCK
         assert (
             self.agent_basic_pre_unlock.get_unlocked_actions_names()
             == SETUP_LIST_ACTIONS_NAME_TO_UNLOCK_WITH_PRE_UNLOCK
         )
-        assert self.agent_basic_pre_unlock.get_current_reward() == BEST_UNLOCKED_VALUE
+        assert self.agent_basic_pre_unlock.get_current_value() == BEST_UNLOCKED_VALUE
 
     def test_unlock_actions(self):
         agent_basic1 = copy.deepcopy(self.agent_basic)
         assert agent_basic1.get_unlocked_actions_names() == []
-        assert agent_basic1.get_current_reward() is None
+        assert agent_basic1.get_current_value() is None
 
         action_to_unlock1 = agent_basic1.get_all_actions_names()[0]
         agent_basic1.unlock_actions(action_to_unlock1)
         assert agent_basic1.get_unlocked_actions_names() == [action_to_unlock1]
-        assert agent_basic1.get_current_reward() is not None
+        assert agent_basic1.get_current_value() is not None
 
         agent_basic2 = copy.deepcopy(self.agent_basic)
         assert agent_basic2.get_unlocked_actions_names() == []
-        assert agent_basic2.get_current_reward() is None
+        assert agent_basic2.get_current_value() is None
 
         actions_to_unlock2 = [
             agent_basic2.get_all_actions_names()[0],
@@ -82,7 +82,7 @@ class TestBasicAgentWithMaxValue(TestCase):
         ]
         agent_basic1.unlock_actions(actions_to_unlock2)
         assert agent_basic1.get_unlocked_actions_names() == actions_to_unlock2
-        assert agent_basic1.get_current_reward() is not None
+        assert agent_basic1.get_current_value() is not None
 
     def test_get_all_actions_names(self):
         assert self.agent_basic.get_all_actions_names() == [
@@ -101,9 +101,9 @@ class TestBasicAgentWithMaxValue(TestCase):
         }
         assert self.agent_basic_pre_unlock.to_dict() == expected_value
 
-    def test_get_current_reward(self):
-        assert self.agent_basic.get_current_reward() is None
-        assert self.agent_basic_pre_unlock.get_current_reward() == BEST_UNLOCKED_VALUE
+    def test_get_current_value(self):
+        assert self.agent_basic.get_current_value() is None
+        assert self.agent_basic_pre_unlock.get_current_value() == BEST_UNLOCKED_VALUE
 
     def test_hash(self):
         # test only on the Agent name, other values can be different

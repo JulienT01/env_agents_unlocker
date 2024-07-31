@@ -50,30 +50,30 @@ class TestBasicAction(TestCase):
 
         assert self.agent_basic.name == SETUP_AGENT_NAME
         assert self.agent_basic.get_unlocked_actions_names() == []
-        assert self.agent_basic.get_current_reward() == 0
+        assert self.agent_basic.get_current_value() == 0
 
         assert self.agent_basic_pre_unlock.name == SETUP_AGENT_NAME_WITH_PRE_UNLOCK
         assert (
             self.agent_basic_pre_unlock.get_unlocked_actions_names()
             == SETUP_LIST_ACTIONS_NAME_TO_UNLOCK_WITH_PRE_UNLOCK
         )
-        assert self.agent_basic_pre_unlock.get_current_reward() == len(
+        assert self.agent_basic_pre_unlock.get_current_value() == len(
             SETUP_LIST_ACTIONS_NAME_TO_UNLOCK_WITH_PRE_UNLOCK
         )
 
     def test_unlock_actions(self):
         agent_basic1 = copy.deepcopy(self.agent_basic)
         assert agent_basic1.get_unlocked_actions_names() == []
-        assert agent_basic1.get_current_reward() == 0
+        assert agent_basic1.get_current_value() == 0
 
         action_to_unlock1 = agent_basic1.get_all_actions_names()[0]
         agent_basic1.unlock_actions(action_to_unlock1)
         assert agent_basic1.get_unlocked_actions_names() == [action_to_unlock1]
-        assert agent_basic1.get_current_reward() == 1
+        assert agent_basic1.get_current_value() == 1
 
         agent_basic2 = copy.deepcopy(self.agent_basic)
         assert agent_basic2.get_unlocked_actions_names() == []
-        assert agent_basic2.get_current_reward() == 0
+        assert agent_basic2.get_current_value() == 0
 
         actions_to_unlock2 = [
             agent_basic2.get_all_actions_names()[0],
@@ -81,7 +81,7 @@ class TestBasicAction(TestCase):
         ]
         agent_basic1.unlock_actions(actions_to_unlock2)
         assert agent_basic1.get_unlocked_actions_names() == actions_to_unlock2
-        assert agent_basic1.get_current_reward() == len(actions_to_unlock2)
+        assert agent_basic1.get_current_value() == len(actions_to_unlock2)
 
     def test_get_all_actions_names(self):
         assert self.agent_basic.get_all_actions_names() == [
@@ -100,9 +100,9 @@ class TestBasicAction(TestCase):
         }
         assert self.agent_basic_pre_unlock.to_dict() == expected_value
 
-    def test_get_current_reward(self):
-        assert self.agent_basic.get_current_reward() == 0
-        assert self.agent_basic_pre_unlock.get_current_reward() == len(
+    def test_get_current_value(self):
+        assert self.agent_basic.get_current_value() == 0
+        assert self.agent_basic_pre_unlock.get_current_value() == len(
             SETUP_LIST_ACTIONS_TO_UNLOCK_WITH_PRE_UNLOCK
         )
 

@@ -23,9 +23,9 @@ class BasicAgentWithMaxValue(AbstractBaseAgent):
         """
         super().__init__(name, potential_actions, pre_unlock_actions_names)
 
-    def get_current_reward(self):
+    def get_current_value(self):
         """
-        The current reward is the best value of the unlocked actions
+        The current value is the best value of the unlocked actions
 
         ------------ Parameters ------------
         None
