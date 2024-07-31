@@ -62,4 +62,6 @@ Penser à rendre les settings personnalisable au maximum.
     - ajouté une option de "pré-requis" (pour que l'action soit réeelement débloqué il faut aussi que les pré-requis le soient)
         -pré-requis étant d'autres agents
         - d'autres pré-requis ?
+        - comment construire automatiquement un "arbre" d'action avec pré-requis
+        -
     - durée et valeur de l'action  (selon l'agent, elle ne sont pas forcément identiques... tout les agents ne prennent pas autant de temps et accorde autant de valeurs à chaque action)
