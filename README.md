@@ -6,6 +6,14 @@
 
 # ENV AGENT UNLOCKER
 
+Environnement basé sur l'API gymnasium (step/reset/reward/observation/...).
+Quelques spécificité :
+    - pour l'instant il n'y a pas de rendering
+    - selon la stratégie, on peut renvoyer des informations différentes entre l'"observation" de chaque step, et le resultat finale : lorsque l'environement passe en état "terminated", vous pouvez trouver l'état final de l'environnement dans le dictionnaire "info".
+
+
+
+
 1 - Agent principal (ce qu'on test, et qui interéagit avec l'enviroment) :
     - actions : Peut prendre des actions (step) qui unlock les actions des agents internes (env_agents) à l'environnement.
     - rewards : Dépend de ce que réussissent à faire les agents internes (env_agents) à l'environement (la somme des rewards indiv des agents secondaires)
@@ -23,9 +31,12 @@
             - la valeur de l'action débloqué qui à la valeur max
             - la somme des valeurs des actions débloquées
 
-
 4 - Actions des agents :
     - option "bloquée"/"débloquée"
+
+
+
+
 
 
 
