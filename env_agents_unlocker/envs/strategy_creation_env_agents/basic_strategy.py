@@ -59,6 +59,13 @@ class BasicStrategyCEA(AbstractStrategyCreationEnvAgents):
         """
         return {"agents": list(map(lambda x: x.to_dict(), self.agent_list))}
 
+    def get_final_results(self):
+        """
+        'final state' of the environment (will be in the 'info' return, when the state is 'terminated')
+        here it's the same as the get_obs().
+        """
+        return self.get_obs()
+
     def create_new_agent_list(self):
         self.agent_list = self._create_list_of_agents()
         return self.agent_list

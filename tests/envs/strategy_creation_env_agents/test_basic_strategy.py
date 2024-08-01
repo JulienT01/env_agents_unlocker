@@ -82,6 +82,28 @@ class TestBasicStrategyCEA(TestCase):
         assert SETUP_STRATEGY_NAME in str(error3)
         assert "Missing 'agents_kwargs' element" in str(error3)
 
+    def test_compute_env_current_value(self):
+        expected_result = 4
+        kwargs = {
+            "number_of_agents": expected_result,
+            "nb_available_action_in_env": 6,
+            "nb_action_to_select_by_agent": 6,
+        }
+        local_strategy = BasicStrategyCEA(agents_kwargs=kwargs)
+        assert local_strategy.compute_env_current_value() == 0
+        for agent in local_strategy.agent_list:
+            agent.unlock_actions("0")
+        assert local_strategy.compute_env_current_value() == expected_result
+
+    def test_get_final_results(self):
+        assert self.basic_strategy.get_obs() == self.basic_strategy.get_final_results()
+
+    def test_get_final_results(self):
+        expected_result = {
+            "agents": list(map(lambda x: x.to_dict(), self.basic_strategy.agent_list))
+        }
+        assert self.basic_strategy.get_obs() == expected_result
+
     def test_equals(self):
         basic_strategy2 = BasicStrategyCEA(
             agents_kwargs=SETUP_AGENTS_KWARGS, name="basic_strategy"

@@ -94,7 +94,10 @@ class AgentUnlockerEnv(gym.Env):
     def _get_obs(self):
         return self.strategy_creation_env_agents.get_obs()
 
-    def _get_info(self):
+    def _get_final_info(self):
+        return self.strategy_creation_env_agents.get_final_results()
+
+    def _get_current_info(self):
         return {}
 
     def reset(self, seed=None, options=None):
@@ -104,7 +107,7 @@ class AgentUnlockerEnv(gym.Env):
         self._init_agents()
 
         observation = self._get_obs()
-        info = self._get_info()
+        info = self._get_current_info()
 
         # if self.render_mode == "human":
         #     self._render_frame()
@@ -136,7 +139,7 @@ class AgentUnlockerEnv(gym.Env):
         terminated = True if (self.current_nb_steps >= self.env_max_steps) else False
         reward = new_env_value - previous_env_value
         observation = self._get_obs()
-        info = self._get_info()
+        info = self._get_final_info() if terminated else self._get_current_info()
 
         # if self.render_mode == "human":
         #     self._render_frame()

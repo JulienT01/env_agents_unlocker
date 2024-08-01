@@ -74,6 +74,34 @@ class TestSameActionsDifferentValuesStrategyCEA(TestCase):
         assert SETUP_STRATEGY_NAME in str(error3)
         assert "Missing 'agents_kwargs' element" in str(error3)
 
+    def test_compute_env_current_value(self):
+        agent_number = 4
+        kwargs = {
+            "number_of_agents": agent_number,
+            "nb_action_by_agent": SETUP_NB_ACTION_BY_AGENT,
+            "agent_class": BasicAgentWithMaxValue,
+        }
+        local_strategy = SameActionsDifferentValuesStrategyCEA(agents_kwargs=kwargs)
+
+        expected_result = 0
+        for agent in local_strategy.agent_list:
+            expected_result += agent.potential_actions[0].get_value()
+        assert local_strategy.compute_env_current_value() == 0
+        for agent in local_strategy.agent_list:
+            agent.unlock_actions("0")
+        assert local_strategy.compute_env_current_value() == expected_result
+
+    def test_get_final_results(self):
+        assert (
+            self.s_a_d_v_strategy.get_obs() == self.s_a_d_v_strategy.get_final_results()
+        )
+
+    def test_get_final_results(self):
+        expected_result = {
+            "agents": list(map(lambda x: x.to_dict(), self.s_a_d_v_strategy.agent_list))
+        }
+        assert self.s_a_d_v_strategy.get_obs() == expected_result
+
     def test_equals(self):
         s_a_d_v_strategy2 = SameActionsDifferentValuesStrategyCEA(
             agents_kwargs=SETUP_AGENTS_KWARGS, name="same_actions_different_values"
