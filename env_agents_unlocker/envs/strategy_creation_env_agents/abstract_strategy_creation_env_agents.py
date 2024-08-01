@@ -70,7 +70,11 @@ class AbstractStrategyCreationEnvAgents(ABC):
 
     @abstractmethod
     def compute_env_current_value(self):
-        """abstract method : how to compute the reward of the environment"""
+        """abstract method : how to compute the value of the environment (current state)."""
+
+    @abstractmethod
+    def get_obs(self):
+        """abstract method : what should be return as 'observation' of the environment (current state)."""
 
     @abstractmethod
     def __hash__(self):

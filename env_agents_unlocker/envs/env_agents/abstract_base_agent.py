@@ -44,6 +44,7 @@ class AbstractBaseAgent(ABC):
 
     def unlock_actions(self, actions_to_unlock):
         """
+        Correspond to the "step" from  gymnasium env.
         Function that unlock a specific list of action for the current Agent
 
         Warning : there is no feedback about the previous state of the action, or even if the action exist for this agent.

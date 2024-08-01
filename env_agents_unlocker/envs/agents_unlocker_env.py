@@ -92,7 +92,7 @@ class AgentUnlockerEnv(gym.Env):
         self.current_nb_steps = 0
 
     def _get_obs(self):
-        return {"agents": list(map(lambda x: x.to_dict(), self.env_agents))}
+        return self.strategy_creation_env_agents.get_obs()
 
     def _get_info(self):
         return {}

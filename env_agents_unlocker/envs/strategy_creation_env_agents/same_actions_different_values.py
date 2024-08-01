@@ -49,6 +49,12 @@ class SameActionsDifferentValuesStrategyCEA(AbstractStrategyCreationEnvAgents):
             sum_rewards += agent.get_current_value()
         return sum_rewards
 
+    def get_obs(self):
+        """
+        observation of the current state of the environment.
+        """
+        return {"agents": list(map(lambda x: x.to_dict(), self.agent_list))}
+
     def create_new_agent_list(self):
         self.agent_list = self._create_list_of_agents()
         return self.agent_list
