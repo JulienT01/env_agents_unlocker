@@ -80,9 +80,20 @@ Le type d'agent est passé en paramètre, ce qui peut permetre (entre autre) d'u
 
 La valeur de l'environnement correspond à la somme des valeurs des agents (Basic agent)
 
+### Same actions different values with negative values
 
+liste des kwargs :
+    - number_of_agents (int) : the number of Agent in the returned list
+    - nb_positive_action_by_agent (int): the number of action with positive value for each agent
+    - nb_negative_action_by_agent (int): the number of action with negative value for each agent
+    - agent_class (subclass of AbstractBaseAgent): class of expected agent to instantiate
 
+Tous les agents ont le même nombre d'action, mais ces actions ont différentes valeurs selon les agents.
+Ces valeurs peuvent également être négative. Le nombre d'action à valeur positive et négative doit être spécifier via les kwargs
 
+Pour bénéficier de la difficultés de débloquer uniquement les agents avec des valeurs positives, il est recommandé d'utiliser des "Basic agent with cumulative value".
+
+La valeur de l'environnement correspond à la somme des valeurs des agents (Basic agent)
 
 # TODO
 
@@ -126,3 +137,4 @@ Penser à rendre les settings personnalisable au maximum.
     - stratégie qui cache complétement la value lors de ses observations, mais affiche son résultat à la fin (l'IA doit faire en fonction du nombre d'action débloquée.)
     - beaucoup d'action partagées "mauvaise", et peu de "bonne" action  (trouver lesquels débloquer)
     - Agent capable de se dupliquer?
+    - action qui à une valeur qui peut changer dans le temps  (un truc positif, qui après devient négatif)
