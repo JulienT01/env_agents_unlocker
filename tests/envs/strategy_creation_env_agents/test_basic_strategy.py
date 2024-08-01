@@ -98,7 +98,7 @@ class TestBasicStrategyCEA(TestCase):
     def test_get_final_results(self):
         assert self.basic_strategy.get_obs() == self.basic_strategy.get_final_results()
 
-    def test_get_final_results(self):
+    def test_get_obs(self):
         expected_result = {
             "agents": list(map(lambda x: x.to_dict(), self.basic_strategy.agent_list))
         }
