@@ -109,7 +109,7 @@ Penser à rendre les settings personnalisable au maximum.
 
 4 - Actions des agents :
     - ajouté une option de "pré-requis" (pour que l'action soit réeelement débloqué il faut aussi que les pré-requis le soient)
-        -pré-requis étant d'autres agents
+        -pré-requis étant d'autres actions  (mais doit être géré par les agents eux-mêmes)
         - d'autres pré-requis ?
         - comment construire automatiquement un "arbre" d'actions avec pré-requis
         - faire des pré-requis négatifs (si une certaine action est débloquée, l'autre n'est plus déblocable (voir se rebloque?))
@@ -125,4 +125,4 @@ Penser à rendre les settings personnalisable au maximum.
         - Agent qui "trichent" sur la vraie valeur de leurs actions (valeur élevée, mais sabotent les autres agents)
     - stratégie qui cache complétement la value lors de ses observations, mais affiche son résultat à la fin (l'IA doit faire en fonction du nombre d'action débloquée.)
     - beaucoup d'action partagées "mauvaise", et peu de "bonne" action  (trouver lesquels débloquer)
-    -
+    - Agent capable de se dupliquer?
