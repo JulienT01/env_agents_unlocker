@@ -1,3 +1,9 @@
+"""
+Agent that randomly unlocks actions in an environment that follows SameActionsDifferentValuesStrategyCEA (each agent has the same list of actions to unlock, but the value of these actions are different)
+the reward is the sum of all the unlocked actions for each agent
+"""
+
+
 import gymnasium as gym
 
 from env_agents_unlocker.envs.strategy_creation_env_agents.same_actions_different_values import (
@@ -39,9 +45,9 @@ for tt in range(1000):
         print(
             "run number ",
             run_number,
-            ", last reward = ",
+            " : last reward = ",
             reward,
-            " run cumulative reward = ",
+            ", run cumulative reward = ",
             cum_reward,
         )
         env.reset()

@@ -1,3 +1,9 @@
+"""
+Agent that randomly unlocks actions in an environment that follows BasicStrategyCEA (each agent has a list of actions (more or less different) to unlock)
+the reward is the sum of the actions unlocked by each agent
+"""
+
+
 import gymnasium as gym
 from env_agents_unlocker.envs.strategy_creation_env_agents.basic_strategy import (
     BasicStrategyCEA,
@@ -34,9 +40,9 @@ for tt in range(300):
         print(
             "run number ",
             run_number,
-            ", last reward = ",
+            " : last reward = ",
             reward,
-            " run cumulative reward = ",
+            ", run cumulative reward = ",
             cum_reward,
         )
         env.reset()
