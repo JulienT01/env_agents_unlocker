@@ -9,7 +9,7 @@ import random
 
 
 class BasicStrategyCEA(AbstractStrategyCreationEnvAgents):
-    def __init__(self, agents_kwargs: dict, name="basic_strategy"):
+    def __init__(self, agents_kwargs: dict, name="basic_strategy", seed=None):
         """
         Create a list of basic agents that all have the same kind of basic (locked) actions.
         It will be a list of BasicAgent, where each of them have a list of BasicAction  (subpart of all the same BasicAction available).
@@ -21,6 +21,8 @@ class BasicStrategyCEA(AbstractStrategyCreationEnvAgents):
                 - nb_action_to_select_by_agent (int): the size of action list for each agent
                 - number_of_agents (int): the number of Agent in the returned list
 
+        seed (int) :
+            to manage reproducibility
 
         ------------ Returns ---------------
         list(AbstractBaseAgent) :
@@ -28,6 +30,7 @@ class BasicStrategyCEA(AbstractStrategyCreationEnvAgents):
 
         """
         super().__init__(agents_kwargs=agents_kwargs, name=name)
+        random.seed(seed)
         self.agent_list = self._create_list_of_agents()
 
     def get_list_of_agents(self) -> list[AbstractBaseAgent]:

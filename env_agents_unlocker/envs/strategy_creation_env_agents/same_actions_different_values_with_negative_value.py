@@ -11,7 +11,10 @@ class SameActionsDifferentValuesWithNegativeValueStrategyCEA(
     AbstractStrategyCreationEnvAgents
 ):
     def __init__(
-        self, agents_kwargs: dict, name="same_actions_different_values_with_negative"
+        self,
+        agents_kwargs: dict,
+        name="same_actions_different_values_with_negative",
+        seed=None,
     ):
         """
         Create a list of agents that all have the same (locked) actions.
@@ -25,12 +28,15 @@ class SameActionsDifferentValuesWithNegativeValueStrategyCEA(
                 - nb_negative_action_by_agent (int): the number of action with negative value for each agent
                 - agent_class (subclass of AbstractBaseAgent): class of expected agent to instantiate
 
+        seed (int) :
+            to manage reproducibility
 
         ------------ Returns ---------------
         list(AbstractBaseAgent) :
         list(AbstractBaseAgent) list of agents in the environment
         """
         super().__init__(agents_kwargs=agents_kwargs, name=name)
+        random.seed(seed)
         self.agent_list = self._create_list_of_agents()
 
     def get_list_of_agents(self) -> list[AbstractBaseAgent]:
