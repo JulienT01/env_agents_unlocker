@@ -69,6 +69,13 @@ class BasicStrategyCEA(AbstractStrategyCreationEnvAgents):
         """
         return self.get_obs()
 
+    def get_current_info(self):
+        """
+        what should be return as 'info' after a step or a reset in the environment (will be in the 'info' return, when the state is not 'terminated').
+        here it's empty
+        """
+        return {}
+
     def create_new_agent_list(self):
         self.agent_list = self._create_list_of_agents()
         return self.agent_list

@@ -81,6 +81,10 @@ class AbstractStrategyCreationEnvAgents(ABC):
         """abstract method : what should be return as 'final state' of the environment (will be in the 'info' return, when the state is 'terminated')."""
 
     @abstractmethod
+    def get_current_info(self):
+        """abstract method : what should be return as 'info' after a step or a reset in the environment (will be in the 'info' return, when the state is not 'terminated')."""
+
+    @abstractmethod
     def __hash__(self):
         """abstract method"""
 

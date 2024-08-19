@@ -98,7 +98,7 @@ class AgentUnlockerEnv(gym.Env):
         return self.strategy_creation_env_agents.get_final_results()
 
     def _get_current_info(self):
-        return {}
+        return self.strategy_creation_env_agents.get_current_info()
 
     def reset(self, seed=None, options=None):
         # We need the following line to seed self.np_random
