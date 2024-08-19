@@ -1,4 +1,5 @@
 import gymnasium as gym
+import numpy as np
 from gymnasium import spaces
 from env_agents_unlocker.envs.strategy_creation_env_agents import (
     abstract_strategy_creation_env_agents,
@@ -129,11 +130,15 @@ class AgentUnlockerEnv(gym.Env):
         )
 
         actions_to_unlock = []
-        if isinstance(actions_id, int):
+        if isinstance(actions_id, (int, np.integer)):
             actions_to_unlock = self._action_id_to_action_name[actions_id]
         elif isinstance(actions_id, list):
             for act_id in actions_id:
                 actions_to_unlock.append(self._action_id_to_action_name[act_id])
+        else:
+            error_message = "The step parameter should be a int or a list(int)"
+            print(error_message)
+            raise TypeError(error_message)
 
         for agent in self.env_agents:
             agent.unlock_actions(actions_to_unlock)

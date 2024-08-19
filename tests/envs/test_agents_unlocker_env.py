@@ -1,6 +1,8 @@
 from unittest import TestCase
 import gymnasium as gym
 
+import pytest
+
 from env_agents_unlocker.envs.strategy_creation_env_agents.basic_strategy import (
     BasicStrategyCEA,
 )
@@ -118,6 +120,27 @@ class AgentUnlockerEnv(TestCase):
             in self.env.unwrapped.env_agents[0].get_unlocked_actions_names()
         )
         assert self.env.unwrapped.env_agents[0].get_current_value() == 2
+
+    def test_env_step_Error_type(self):
+        self.env.reset()
+        assert (
+            self.env.unwrapped.env_agents[0].get_current_value() == 0
+        )  # basic_agent get 1 point per unlocked action: so 0 after a reset
+
+        action_name_to_unlock = self.env.unwrapped.env_agents[
+            0
+        ].get_all_actions_names()[
+            0
+        ]  # get the first action of the first agent to unlock
+        assert (
+            action_name_to_unlock
+            not in self.env.unwrapped.env_agents[0]._get_unlocked_actions()
+        )
+
+        action_id = self.env.unwrapped.get_action_id_from_name(action_name_to_unlock)
+
+        with pytest.raises(TypeError) as error:
+            self.env.step(str(action_id))
 
     def test_env_reset(self):
         self.env.reset()
