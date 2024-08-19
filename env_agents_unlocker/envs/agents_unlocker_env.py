@@ -120,16 +120,23 @@ class AgentUnlockerEnv(gym.Env):
     # def get_action_name_from_id(self, action_id):
     #     return self._action_id_to_action_name[action_id]
 
-    def step(self, action_id):
+    def step(self, actions_id):
+        """
+        action_id can be a int or a list(int)
+        """
         previous_env_value = (
             self.strategy_creation_env_agents.compute_env_current_value()
         )
 
-        # Map the action (element of {0,1,2,3}) to the direction we walk in
-        action_to_unlock = self._action_id_to_action_name[action_id]
+        actions_to_unlock = []
+        if isinstance(actions_id, int):
+            actions_to_unlock = self._action_id_to_action_name[actions_id]
+        elif isinstance(actions_id, list):
+            for act_id in actions_id:
+                actions_to_unlock.append(self._action_id_to_action_name[act_id])
 
         for agent in self.env_agents:
-            agent.unlock_actions(action_to_unlock)
+            agent.unlock_actions(actions_to_unlock)
 
         self.current_nb_steps += 1
 
