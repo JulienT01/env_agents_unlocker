@@ -48,12 +48,12 @@ class SameActionsDifferentValuesStrategyCEA(AbstractStrategyCreationEnvAgents):
         """
         The value of the current state of the env is the sum of the agents current value
         """
-        sum_rewards = 0
+        sum_values = 0
         for agent in self.agent_list:
-            agent_reward = agent.get_current_value()
-            if agent_reward:
-                sum_rewards += agent_reward
-        return sum_rewards
+            agent_value = agent.get_current_value()
+            if agent_value:
+                sum_values += agent_value
+        return sum_values
 
     def get_obs(self):
         """

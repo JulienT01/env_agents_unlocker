@@ -17,7 +17,7 @@ class AbstractBaseAction(ABC):
         unlocked (bool) , default value = False :
             The action is unlock for the agent or not
         value (float) , default value = None :
-            The reward of this action
+            The value of this action
         """
         self.action_name = action_name
         self.unlocked = unlocked

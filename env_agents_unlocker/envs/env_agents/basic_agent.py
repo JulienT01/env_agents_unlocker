@@ -12,7 +12,7 @@ class BasicAgent(AbstractBaseAgent):
         pre_unlock_actions_names: list[str] = None,
     ) -> None:
         """
-        Basic Agent, its objective (to maximize its reward) is to unlock the maximum of its actions
+        Basic Agent, its objective (to maximize its value) is to unlock the maximum of its actions
         ------------ Parameters ------------
         name (str):
             The name of the agent (could be use as ID)
@@ -32,7 +32,7 @@ class BasicAgent(AbstractBaseAgent):
 
         ------------ Returns ---------------
         return int :
-            the current reward for this agent
+            the current value for this agent = the number of unlocked action
         """
         return len(self._get_unlocked_actions())
 

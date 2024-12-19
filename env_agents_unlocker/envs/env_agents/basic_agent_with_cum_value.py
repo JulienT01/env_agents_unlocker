@@ -12,7 +12,7 @@ class BasicAgentWithCumValue(AbstractBaseAgent):
         pre_unlock_actions_names: list[str] = None,
     ) -> None:
         """
-        Basic Agent, its objective (to maximize its reward) is to unlock the actions with the biggest value of its actions (sum of actions value)
+        Basic Agent, its objective (to maximize its value) is to unlock the actions with the biggest value (sum of the value for the unlocked actions)
         ------------ Parameters ------------
         name (str):
             The name of the agent (could be use as ID)

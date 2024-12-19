@@ -49,12 +49,12 @@ class BasicStrategyCEA(AbstractStrategyCreationEnvAgents):
         """
         The value of the current state of the env is the sum of the agents current value
         ------------ Returns ---------------
-        Dict of the agents
+        The sum of the current values of each internal agents
         """
-        sum_rewards = 0
+        sum_values = 0
         for agent in self.agent_list:
-            sum_rewards += agent.get_current_value()
-        return sum_rewards
+            sum_values += agent.get_current_value()
+        return sum_values
 
     def get_obs(self):
         """

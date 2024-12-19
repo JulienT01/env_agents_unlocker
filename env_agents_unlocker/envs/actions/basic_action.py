@@ -13,7 +13,7 @@ class BasicAction(AbstractBaseAction):
         unlocked (bool) , default value = False :
             The action is unlock for the agent or not
         value (float) , default value = None :
-            The reward of this action
+            The value of this action
         """
         super().__init__(action_name, unlocked, value)
 

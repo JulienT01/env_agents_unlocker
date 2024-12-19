@@ -12,7 +12,7 @@ class BasicAgentWithMaxValue(AbstractBaseAgent):
         pre_unlock_actions_names: list[str] = None,
     ) -> None:
         """
-        Basic Agent, its objective (to maximize its reward) is to unlock the action with the max value. (max value only, other actions are useless)
+        Basic Agent, its objective (to maximize its value) is to unlock the action with the max value. (action with the max value only, other actions are useless)
         ------------ Parameters ------------
         name (str):
             The name of the agent (could be use as ID)
